@@ -8,7 +8,7 @@ const supabase = createClient(
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     const { data, error } = await supabase
-      .from('todos')  // Sostituisci con il nome della tua tabella
+      .from('Teachers')  // Sostituisci con il nome della tua tabella
       .select('*');
       
     if (error) {
