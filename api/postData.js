@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       const { data, error } = await supabase
         .from('Teacher')
         .select('*')
-        .eq('id', TeacherId)  // Aggiungi la condizione per l'ID
+        .eq('TeacherId', TeacherId)  // Aggiungi la condizione per l'ID
         .single(); // Usa .single() per ottenere un singolo risultato (se esiste)
 
       if (error) {
