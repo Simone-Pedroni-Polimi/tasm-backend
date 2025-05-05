@@ -7,9 +7,9 @@ const supabase = createClient(
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { id } = req.body; // Ottieni l'ID dal corpo della richiesta
+    const { TeacherId } = req.body; // Ottieni l'ID dal corpo della richiesta
 
-    if (!id) {
+    if (!TeacherId) {
       // Se l'ID non è stato fornito, ritorna un errore 400
       return res.status(400).json({ error: 'ID mancante' });
     }
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
       const { data, error } = await supabase
         .from('Teacher')
         .select('*')
-        .eq('id', id)  // Aggiungi la condizione per l'ID
+        .eq('id', TeacherId)  // Aggiungi la condizione per l'ID
         .single(); // Usa .single() per ottenere un singolo risultato (se esiste)
 
       if (error) {
