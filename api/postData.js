@@ -17,7 +17,7 @@ export default async function handler(req, res) {
     try {
       // Recupera il todo con il dato id dalla tabella "todos"
       const { data, error } = await supabase
-        .from('Teachers')
+        .from('Teacher')
         .select('*')
         .eq('id', id)  // Aggiungi la condizione per l'ID
         .single(); // Usa .single() per ottenere un singolo risultato (se esiste)
