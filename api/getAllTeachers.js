@@ -6,20 +6,20 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
-    const { TeacherId } = req.body; // Ottieni l'ID dal corpo della richiesta
-
-    if (!TeacherId) {
-      // Se l'ID non è stato fornito, ritorna un errore 400
-      return res.status(400).json({ error: 'ID mancante' });
-    }
-
+  if (req.method === 'GET') {
+    
     try {
       // Recupera il todo con il dato id dalla tabella "todos"
+      /*Recupera info base dei teacher: 
+          IdTeacher, 
+          Name, 
+          Mantra, 
+          MainImageUrl, 
+          nameActivity che hosta
+      */
       const { data, error } = await supabase
         .from('Teacher') // TODO query to retrieve all teachers 
-        .select('*')
-        .eq('TeacherId', TeacherId)  // Aggiungi la condizione per l'ID
+        .select('TeacherId, Name,Mantra,MainImageURL ')
         .single(); // Usa .single() per ottenere un singolo risultato (se esiste)
 
       if (error) {
