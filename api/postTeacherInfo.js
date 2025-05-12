@@ -18,19 +18,7 @@ export default async function handler(req, res) {
       // Recupera il todo con il dato id dalla tabella "todos"
       const { data, error } = await supabase
         .from('Teacher')
-        .select(`
-          TeacherId,
-          Name,
-          Mantra,
-          Description,
-          MainImageURL,
-          BannerImageUrl,
-          History
-        `)
-        .eq('TeacherId', TeacherId)  // Aggiungi la condizione per l'ID
-
-      /*
-      .select(`
+       .select(`
           TeacherId,
           Name,
           Mantra,
@@ -38,7 +26,6 @@ export default async function handler(req, res) {
           History,
           MainImageURL,
           BannerImageUrl,
-          History,
           TeacherActivity(
             Activity(
               ActivityId,
@@ -53,7 +40,7 @@ export default async function handler(req, res) {
               Title,
               ShortIntroduction
             )
-          )
+          ),
           TeacherCert(
             Certification(
               CertificationId,
@@ -62,8 +49,7 @@ export default async function handler(req, res) {
           )
         `)
         .eq('TeacherId', TeacherId)  // Aggiungi la condizione per l'ID
-        .single(); // Usa .single() per ottenere un singolo risultato (se esiste)
-*/
+
       if (error) {
         // Se c'è un errore con Supabase, restituisci un errore 500
         return res.status(500).json({ error: error.message });
