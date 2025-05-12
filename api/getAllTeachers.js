@@ -15,9 +15,25 @@ export default async function handler(req, res) {
           MainImageUrl, 
           nameActivity che hosta
       */
-      const { data, error } = await supabase
+      /*const { data, error } = await supabase
         .from('Teacher') // TODO query to retrieve all teachers 
         .select('TeacherId, Name, Mantra, MainImageURL');
+*/
+    const { data, error } = await supabase
+      .from('Teacher')
+      .select(`
+        TeacherId,
+        Name,
+        Mantra,
+        MainImageURL,
+        TeacherActivity(
+          Activity(
+            Title
+          )
+        )
+      `);
+      
+    
     if (error) {
       res.status(500).json({ error: error.message });
     } else {
