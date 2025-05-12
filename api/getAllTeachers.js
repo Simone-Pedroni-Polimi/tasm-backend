@@ -18,7 +18,7 @@ export default async function handler(req, res) {
       const { data, error } = await supabase
         .from('Teacher') // TODO query to retrieve all teachers 
         .select('TeacherId', 'Name','Mantra','MainImageURL' )
-        .single(); // Usa .single() per ottenere un singolo risultato (se esiste)
+        
 
       
     if (error) {
