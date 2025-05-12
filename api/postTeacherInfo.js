@@ -28,8 +28,6 @@ export default async function handler(req, res) {
           History
         `)
         .eq('TeacherId', TeacherId)  // Aggiungi la condizione per l'ID
-        .single(); // Usa .single() per ottenere un singolo risultato (se esiste)
-
 
       /*
       .select(`
