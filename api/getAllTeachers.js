@@ -17,10 +17,7 @@ export default async function handler(req, res) {
       */
       const { data, error } = await supabase
         .from('Teacher') // TODO query to retrieve all teachers 
-        .select('TeacherId', 'Name','Mantra','MainImageURL' )
-        
-
-      
+        .select('TeacherId, Name, Mantra, MainImageURL');
     if (error) {
       res.status(500).json({ error: error.message });
     } else {
