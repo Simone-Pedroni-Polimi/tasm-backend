@@ -26,6 +26,21 @@ export default async function handler(req, res) {
           History,
           MainImageURL,
           BannerImageUrl,
+          History
+        `)
+        .eq('TeacherId', TeacherId)  // Aggiungi la condizione per l'ID
+        .single(); // Usa .single() per ottenere un singolo risultato (se esiste)
+
+
+      /*
+      .select(`
+          TeacherId,
+          Name,
+          Mantra,
+          Description,
+          History,
+          MainImageURL,
+          BannerImageUrl,
           History,
           TeacherActivity(
             Activity(
@@ -51,7 +66,7 @@ export default async function handler(req, res) {
         `)
         .eq('TeacherId', TeacherId)  // Aggiungi la condizione per l'ID
         .single(); // Usa .single() per ottenere un singolo risultato (se esiste)
-
+*/
       if (error) {
         // Se c'è un errore con Supabase, restituisci un errore 500
         return res.status(500).json({ error: error.message });
