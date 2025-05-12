@@ -16,40 +16,39 @@ export default async function handler(req, res) {
 
     try {
       // Recupera il todo con il dato id dalla tabella "todos"
-      const { data, error } = await supabase
-        .from('Teacher')
-       .select(`
-          TeacherId,
-          Name,
-          Mantra,
-          Description,
-          History,
-          MainImageURL,
-          BannerImageUrl,
-          TeacherActivity(
-            Activity(
-              ActivityId,
-              BannerImgUrl,
-              Title
-            )
-          ),
-          TeacherEvent(
-            Event(
-              EventId,
-              BannerImgUrl,
-              Title,
-              ShortIntroduction
-            )
-          ),
-          TeacherCert(
-            Certification(
-              CertificationId,
-              Title
-            )
-          )
-        `)
-        .eq('TeacherId', TeacherId)  // Aggiungi la condizione per l'ID
-
+     const { data, error } = await supabase
+  .from('Teacher')
+  .select(`
+    TeacherId,
+    Name,
+    Mantra,
+    Description,
+    History,
+    MainImageURL,
+    BannerImageUrl,
+    TeacherActivity:TeacherActivity!HostingTeacherId(
+      Activity(
+        ActivityId,
+        BannerImgUrl,
+        Title
+      )
+    ),
+    TeacherEvent:TeacherEvent!TeacherId(
+      Event(
+        EventId,
+        BannerImgUrl,
+        Title,
+        ShortIntroduction
+      )
+    ),
+    TeacherCert:TeacherCert!TeacherId(
+      Certification(
+        CertificationId,
+        Title
+      )
+    )
+  `)
+  .eq('TeacherId', Number(TeacherId));
       if (error) {
         // Se c'è un errore con Supabase, restituisci un errore 500
         return res.status(500).json({ error: error.message });
