@@ -27,12 +27,17 @@ console.log('Richiesta ricevuta con TeacherId:', req.body);
     try {
       const { data, error } = await supabase
       .from('Teacher')
-      .select(`
+       .select(`
         TeacherId,
         Name,
         Mantra,
-        Description
-      `)
+        MainImageURL,
+        TeacherActivity(
+          Activity(
+            Title
+          )
+        )
+      `);
       .eq('TeacherId', Number(TeacherId));
 
       /*.select(`
