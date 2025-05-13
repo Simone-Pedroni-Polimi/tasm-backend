@@ -38,15 +38,15 @@ export default async function handler(req, res) {
         TeacherActivity:TeacherActivity!HostingTeacherId(
           Activity(
             ActivityId,
-            BannerImgUrl,
+            BannerImageUrl,
             Title
           )
         ),
         TeacherEvent:TeacherEvent!TeacherId(
           Event(
             EventId,
-            BannerImgUrl,
-            Title,
+            BannerImageUrl,
+            Name,
             ShortIntroduction
           )
         ),
