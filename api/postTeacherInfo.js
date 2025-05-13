@@ -20,8 +20,8 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     const { TeacherId } = req.body;
 console.log('Richiesta ricevuta con TeacherId:', req.body);
-    if (!TeacherId) {
-      return res.status(400).json({ error: 'ID mancante' });
+    if (TeacherId) {
+      return res.status(400).json({ error: 'ID mancante', TeacherId });
     }
 
     try {
