@@ -37,7 +37,7 @@ console.log('Richiesta ricevuta con TeacherId:', req.body);
             Title
           )
         )
-      `);
+      `)
       .eq('TeacherId', Number(TeacherId));
 
       /*.select(`
