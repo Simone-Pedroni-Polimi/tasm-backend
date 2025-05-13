@@ -34,6 +34,21 @@ console.log('Richiesta ricevuta con TeacherId:', req.body);
         MainImageURL,
         TeacherActivity(
           Activity(
+            Title,
+            ActivityId
+          )
+        ),
+        TeacherEvent(
+          Event(
+            EventId,
+            BannerImageURL,
+            Name,
+            ShortIntroduction
+          )
+        ),
+        TeacherCert(
+          Certification(
+            CertificationId,
             Title
           )
         )
