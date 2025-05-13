@@ -32,6 +32,14 @@ console.log('Richiesta ricevuta con TeacherId:', req.body);
         Name,
         Mantra,
         Description,
+      `)
+      .eq('TeacherId', Number(TeacherId));
+
+      /*.select(`
+        TeacherId,
+        Name,
+        Mantra,
+        Description,
         History,
         MainImageURL,
         BannerImageURL,
@@ -56,8 +64,7 @@ console.log('Richiesta ricevuta con TeacherId:', req.body);
             Title
           )
         )
-      `)
-      .eq('TeacherId', Number(TeacherId));
+      `)*/
       if (error) {
         return res.status(500).json({ error: error.message });
       }
