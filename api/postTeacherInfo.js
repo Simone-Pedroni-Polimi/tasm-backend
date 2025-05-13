@@ -32,6 +32,8 @@ console.log('Richiesta ricevuta con TeacherId:', req.body);
         Name,
         Mantra,
         MainImageURL,
+        Description, 
+        History,
         TeacherActivity(
           Activity(
             Title,
