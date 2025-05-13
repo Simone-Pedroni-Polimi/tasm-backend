@@ -34,6 +34,7 @@ console.log('Richiesta ricevuta con TeacherId:', req.body);
         MainImageURL,
         Description, 
         History,
+        BannerImageURL,
         TeacherActivity(
           Activity(
             Title,
