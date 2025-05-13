@@ -2,6 +2,11 @@
   "name": "tasm-backend",
   "version": "1.0.0",
   "dependencies": {
-    "@supabase/supabase-js": "^2.0.0"
+    "@supabase/supabase-js": "^2.49.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "@vercel/node": "^2.3.0",
+    "typescript": "^5.8.3"
   }
 }
