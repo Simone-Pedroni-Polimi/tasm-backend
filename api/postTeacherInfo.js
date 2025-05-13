@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   // ... (continua col resto del tuo codice)
   if (req.method === 'POST') {
     const { TeacherId } = req.body;
-
+console.log('Richiesta ricevuta con TeacherId:', req.body);
     if (!TeacherId) {
       return res.status(400).json({ error: 'ID mancante' });
     }
