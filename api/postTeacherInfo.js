@@ -31,7 +31,7 @@ console.log('Richiesta ricevuta con TeacherId:', req.body);
         TeacherId,
         Name,
         Mantra,
-        Description,
+        Description
       `)
       .eq('TeacherId', Number(TeacherId));
 
