@@ -34,7 +34,7 @@ export default async function handler(req, res) {
         Description,
         History,
         MainImageURL,
-        BannerImageUrl,
+        BannerImageURL,
         TeacherActivity:TeacherActivity!HostingTeacherId(
           Activity(
             ActivityId,
