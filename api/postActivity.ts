@@ -101,11 +101,9 @@ export default async function handler(req, res) {
     }
 
     if (!data) {
-      return res
-        .status(404)
-        .json({
-          error: `${ActivityTitle}\nNo one with this name works with us!`,
-        })
+      return res.status(404).json({
+        error: `${ActivityTitle}\nNo one with this name works with us!`,
+      })
     }
 
     const easyInfo = data.PracticalInfo.filter(
@@ -139,7 +137,7 @@ export default async function handler(req, res) {
 
         const s = start.split(":").map((s) => parseInt(s))
         const e = end.split(":").map((s) => parseInt(s))
-        const duration = (e[0] - s[0]) * 60 - (e[1] - s[1])
+        const duration = (e[0] - s[0]) * 60 + (e[1] - s[1])
 
         return {
           date: Schedule.DayOfWeek ?? "No Date",
@@ -155,7 +153,7 @@ export default async function handler(req, res) {
       info: [easyInfo, mediumInfo, hardInfo],
       teachers: data.TeacherActivity.map(({ Teacher }) => ({
         name: Teacher.Name ?? "No Name",
-        image: `/images/${Teacher.MainImageURL}`,
+        image: `/${Teacher.MainImageURL}`,
         mantra: Teacher.Mantra ?? "No Mantra",
         activityTags: Teacher.TeacherActivity.map((a) => ({
           text: a.Activity.Title ?? "other",
