@@ -45,9 +45,18 @@ export default async function handler(req, res) {
         TeacherEvent(
           Event(
             EventId,
+            Date,
+            StartTime,
+            EndTime,
+            Location,  
             BannerImageURL,
             Name,
-            ShortIntroduction
+            ShortIntroduction,
+             GuestEvent(
+                Guest(
+                  Name,
+                  MainImageURL
+                )
           )
         ),
         TeacherCert(
