@@ -28,6 +28,82 @@ export default async function handler(req, res) {
       const { data, error } = await supabase
       .from('Teacher')
        .select(`
+  TeacherId,
+  Name,
+  Mantra,
+  MainImageURL,
+  Description,
+  History,
+  BannerImageURL,
+  TeacherActivity(
+    Activity(
+      Title,
+      ActivityId,
+      BannerImageURL
+    )
+  ),
+  TeacherEvent(
+    Event(
+      EventId,
+      Date,
+      StartTime,
+      EndTime,
+      Location,
+      BannerImageURL,
+      Name,
+      ShortIntroduction,
+      GuestEvent(
+        Guest(
+          Name,
+          MainImageURL
+        )
+      )
+    )
+  ),
+  TeacherCert(
+    Certification(
+      CertificationId,
+      Title
+    )
+  ),
+  TeacherImages(
+    Image(
+      URL
+    )
+  )
+`)
+ .eq('Name', (TeacherName));
+
+      /*.select(`
+        TeacherId,
+        Name,
+        Mantra,
+        Description,
+        History,
+        MainImageURL,
+        BannerImageURL,
+        TeacherActivity:TeacherActivity!HostingTeacherId(
+          Activity(
+            ActivityId,
+            BannerImageURL,
+            Title
+          )
+        ),
+        TeacherEvent:TeacherEvent!TeacherId(
+          Event(
+            EventId,
+            BannerImageURL,
+            Name,
+            ShortIntroduction
+          )
+        ),
+        TeacherCert:TeacherCert!TeacherId(
+          Certification(
+            CertificationId,
+            Title
+          )
+        )
+      `).select(`
         TeacherId,
         Name,
         Mantra,
@@ -68,38 +144,6 @@ export default async function handler(req, res) {
         TeacherImages(
           Image(
             URL
-          )
-        )
-      `)
-      .eq('Name', (TeacherName));
-
-      /*.select(`
-        TeacherId,
-        Name,
-        Mantra,
-        Description,
-        History,
-        MainImageURL,
-        BannerImageURL,
-        TeacherActivity:TeacherActivity!HostingTeacherId(
-          Activity(
-            ActivityId,
-            BannerImageURL,
-            Title
-          )
-        ),
-        TeacherEvent:TeacherEvent!TeacherId(
-          Event(
-            EventId,
-            BannerImageURL,
-            Name,
-            ShortIntroduction
-          )
-        ),
-        TeacherCert:TeacherCert!TeacherId(
-          Certification(
-            CertificationId,
-            Title
           )
         )
       `)*/
