@@ -6,6 +6,16 @@ const supabase = createClient(
 );
 
 export default async function handler(req, res) {
+
+   // ✅ Inserisci questi header per gestire CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  // ✅ Rispondi subito alle richieste preflight (OPTIONS)
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
   if (req.method === 'GET') {
     // Recupera il todo con il dato id dalla tabella "todos"
       /*Recupera info base dei teacher: 
