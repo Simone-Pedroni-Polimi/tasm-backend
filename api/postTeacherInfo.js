@@ -55,6 +55,11 @@ console.log('Richiesta ricevuta con TeacherId:', req.body);
             CertificationId,
             Title
           )
+        ),
+        TeacherImages(
+          Image(
+            URL
+          )
         )
       `)
       .eq('TeacherId', Number(TeacherId));
