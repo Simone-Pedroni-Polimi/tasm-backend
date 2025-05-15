@@ -130,7 +130,7 @@ export default async function handler(req, res) {
     const activity: ActivityType = {
       title: data.Title ?? "No Title",
       description: data.Description ?? "No Description",
-      mainImageURL: `/images/${data.BannerImageURL}`,
+      mainImageURL: `${data.BannerImageURL}`,
       nextLessons: data.ActivitySchedule.map(({ Schedule }, i) => {
         const start = (Schedule.StartTime ?? "00:00:00").substring(0, 5)
         const end = (Schedule.EndTime ?? "00:00:00").substring(0, 5)
