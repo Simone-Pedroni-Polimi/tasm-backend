@@ -11,12 +11,13 @@ export default async function handler(req, res) {
 
     if (req.method === 'GET') {
         const { data, error } = await supabase
-            .from('Room')
+            .from('YogaCenter')
             .select(`
-                RoomId,
-                Name,
-                UrlImage,
-                Text
+                YogaCenterId,
+                Title,
+                Subtitle,
+                LongDescription,
+                Room (Name, Text, UrlImage)
             `);
 
         if (error) {

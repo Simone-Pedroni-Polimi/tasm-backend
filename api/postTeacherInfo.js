@@ -19,8 +19,8 @@ export default async function handler(req, res) {
   // ... (continua col resto del tuo codice)
   if (req.method === 'POST') {
     const { TeacherName } = req.body;
-console.log('Richiesta ricevuta con TeacherName:', req.body);
-    if (!TeacherId) {
+
+    if (!TeacherName) {
       return res.status(400).json({ error: 'ID mancante' });
     }
 
@@ -28,41 +28,51 @@ console.log('Richiesta ricevuta con TeacherName:', req.body);
       const { data, error } = await supabase
       .from('Teacher')
        .select(`
-        TeacherId,
-        Name,
-        Mantra,
-        MainImageURL,
-        Description, 
-        History,
-        BannerImageURL,
-        TeacherActivity(
-          Activity(
-            Title,
-            ActivityId,
-            BannerImageURL
-          )
-        ),
-        TeacherEvent(
-          Event(
-            EventId,
-            BannerImageURL,
-            Name,
-            ShortIntroduction
-          )
-        ),
-        TeacherCert(
-          Certification(
-            CertificationId,
-            Title
-          )
-        ),
-        TeacherImages(
-          Image(
-            URL
-          )
+  TeacherId,
+  Name,
+  Mantra,
+  MainImageURL,
+  Description,
+  History,
+  BannerImageURL,
+  TeacherActivity(
+    Activity(
+      Title,
+      ActivityId,
+      BannerImageURL
+    )
+  ),
+  TeacherEvent(
+    Event(
+      EventId,
+      Date,
+      StartTime,
+      EndTime,
+      Location,
+      BannerImageURL,
+      Name,
+      ShortIntroduction,
+      GuestEvent(
+        Guest(
+          Name,
+          MainImageURL
         )
-      `)
-      .eq('Name', (TeacherName));
+      )
+    )
+  ),
+  TeacherCert(
+    Certification(
+      CertificationId,
+      Title
+    )
+  ),
+  TeacherImages(
+    Image(
+      URL
+    )
+  )
+`)
+ .eq('Name', (TeacherName));
 
       /*.select(`
         TeacherId,
@@ -91,6 +101,49 @@ console.log('Richiesta ricevuta con TeacherName:', req.body);
           Certification(
             CertificationId,
             Title
+          )
+        )
+      `).select(`
+        TeacherId,
+        Name,
+        Mantra,
+        MainImageURL,
+        Description, 
+        History,
+        BannerImageURL,
+        TeacherActivity(
+          Activity(
+            Title,
+            ActivityId,
+            BannerImageURL
+          )
+        ),
+        TeacherEvent(
+          Event(
+            EventId,
+            Date,
+            StartTime,
+            EndTime,
+            Location,  
+            BannerImageURL,
+            Name,
+            ShortIntroduction,
+             GuestEvent(
+                Guest(
+                  Name,
+                  MainImageURL
+                )
+          )
+        ),
+        TeacherCert(
+          Certification(
+            CertificationId,
+            Title
+          )
+        ),
+        TeacherImages(
+          Image(
+            URL
           )
         )
       `)*/
