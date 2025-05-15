@@ -53,7 +53,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "ActivityTitle must be a string" })
 
   try {
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("Activity")
       .select(
         `
@@ -96,13 +96,9 @@ export default async function handler(req, res) {
       .eq("Title", ActivityTitle)
       .single()
 
-    if (error) {
-      return res.status(500).json({ error: error.message })
-    }
-
     if (!data) {
       return res.status(404).json({
-        error: `${ActivityTitle}\nNo one with this name works with us!`,
+        error: `${ActivityTitle} - This activity is not available!`,
       })
     }
 
