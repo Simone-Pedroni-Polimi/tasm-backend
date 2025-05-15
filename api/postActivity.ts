@@ -93,7 +93,7 @@ export default async function handler(req, res) {
         )
       `
       )
-      .eq("ActivityTitle", ActivityTitle)
+      .eq("Title", ActivityTitle)
       .single()
 
     if (error) {
