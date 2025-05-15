@@ -21,7 +21,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     res.status(200).json(
       data.map((a) => ({
         title: a.Title ?? "No Title",
-        image: a.BannerImageURL,
+        image: `/images/${a.BannerImageURL}`,
       }))
     )
   }
