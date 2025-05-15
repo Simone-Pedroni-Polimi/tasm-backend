@@ -101,7 +101,11 @@ export default async function handler(req, res) {
     }
 
     if (!data) {
-      return res.status(404).json({ error: "Teacher non trovato" })
+      return res
+        .status(404)
+        .json({
+          error: `${ActivityTitle}\nNo one with this name works with us!`,
+        })
     }
 
     const easyInfo = data.PracticalInfo.filter(
@@ -143,7 +147,7 @@ export default async function handler(req, res) {
           name: `Lesson ${i + 1}`,
           time: `${Schedule.StartTime} - ${Schedule.EndTime} (${duration}m)`,
         }
-      }),
+      }).splice(0, 5),
       images: data.ActivityImages.map(({ Image }) => ({
         URL: Image.URL ?? "",
         alt: Image.Name ?? `${data.Title} Image`,
@@ -156,7 +160,7 @@ export default async function handler(req, res) {
         activityTags: Teacher.TeacherActivity.map((a) => ({
           text: a.Activity.Title ?? "other",
         })),
-      })),
+      })).splice(0, 3),
     }
 
     return res.status(200).json(activity)
