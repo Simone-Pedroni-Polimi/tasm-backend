@@ -38,7 +38,8 @@ console.log('Richiesta ricevuta con TeacherId:', req.body);
         TeacherActivity(
           Activity(
             Title,
-            ActivityId
+            ActivityId,
+            BannerImageURL
           )
         ),
         TeacherEvent(
