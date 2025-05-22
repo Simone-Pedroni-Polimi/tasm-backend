@@ -117,17 +117,21 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     console.log("Composing Response")
 
-    const YogaCenter: YogaCenter = {
+    const yogaCenter: YogaCenter = {
       title: dataYogaCenter.Title ?? "No Title",
       subtitle: dataYogaCenter.Subtitle ?? "No Title",
       description: dataYogaCenter.ShortOverview ?? "No Description",
       imageOnTheRight: false,
     }
 
+    console.log("Center ok", JSON.stringify(yogaCenter, null, 2))
+
     const activities: Activity[] = dataActivities.map((activity) => ({
       title: activity.Title ?? "No Title",
       image: activity.BannerImageURL ?? "No Image",
     }))
+
+    console.log("Activities ok", JSON.stringify(activities, null, 2))
 
     const events: Event[] = dataEvents.map((event) => ({
       eventId: event.EventId,
@@ -144,6 +148,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       ),
     }))
 
+    console.log("Events ok", JSON.stringify(events, null, 2))
+
     const teachers: Teacher[] = dataTeachers.map((teacher) => ({
       name: teacher.Name ?? "No Name",
       image: teacher.MainImageURL ?? "No Image",
@@ -153,11 +159,13 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       })),
     }))
 
+    console.log("Teacher ok", JSON.stringify(yogaCenter, null, 2))
+
     const resData: ResponseData = {
-      yogaCenter: YogaCenter,
-      activities: activities,
-      events: events,
-      teachers: teachers,
+      yogaCenter,
+      activities,
+      events,
+      teachers,
     }
 
     console.log("Composed response data")
