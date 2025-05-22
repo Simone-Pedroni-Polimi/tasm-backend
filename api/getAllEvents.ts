@@ -61,8 +61,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           e.TeacherEvent[0]?.Teacher?.Name ??
           "No Name",
         image:
-          e.GuestEvent[0]?.Guest?.Name ??
-          e.TeacherEvent[0]?.Teacher?.Name ??
+          e.GuestEvent[0]?.Guest?.MainImageURL ??
+          e.TeacherEvent[0]?.Teacher?.MainImageURL ??
           "notfound.jpg",
       }
 
@@ -76,11 +76,13 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         hostImage: `/images/${host.image}`,
         eventId: e.EventId,
         eventImage: `/images/${e.BannerImageURL}`,
-        activityTags: e.TeacherEvent[0].Teacher.TeacherActivity.filter(
-          (a) => a.Activity.Title
-        ).map((a) => ({ text: a.Activity.Title ?? "other" })),
+        activityTags:
+          e.TeacherEvent[0]?.Teacher?.TeacherActivity?.filter?.(
+            (a) => a.Activity.Title
+          ).map((a) => ({ text: a.Activity.Title ?? "other" })) ?? [],
       }
     })
+
     res.status(200).json(events)
   }
 }
