@@ -160,6 +160,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       teachers: teachers,
     }
 
+    console.log("Composed response data")
+    console.log(JSON.stringify(resData, null, 2))
+
     return res.status(200).json(resData)
   } catch (err) {
     console.error("There was an error:")
