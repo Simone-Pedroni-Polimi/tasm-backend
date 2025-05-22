@@ -105,6 +105,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         ),
         TeacherEvent(
           Teacher(
+            Name,
+            MainImageURL,
             TeacherActivity(
               Activity(
                 Title
@@ -133,20 +135,34 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     console.log("Activities ok", JSON.stringify(activities, null, 2))
 
-    const events: Event[] = dataEvents.map((event) => ({
-      eventId: event.EventId,
-      title: event.Name ?? "No Title",
-      eventImage: event.BannerImageURL ?? "No Image",
-      hostImage: event.GuestEvent[0].Guest.MainImageURL ?? "No Image",
-      hostName: event.GuestEvent[0].Guest.Name ?? "No Name",
-      date: event.Date ?? "No Date",
-      startTime: event.StartTime ?? "No Start Time",
-      endTime: event.EndTime ?? "No End Time",
-      location: event.Location ?? "No Location",
-      activityTags: event.TeacherEvent[0].Teacher.TeacherActivity.map(
-        (tag) => ({ text: tag.Activity.Title ?? "No Tag" })
-      ),
-    }))
+    const events: Event[] = dataEvents.map((e) => {
+      const host: { name: string; image: string } = {
+        name:
+          e.GuestEvent[0]?.Guest?.Name ??
+          e.TeacherEvent[0]?.Teacher?.Name ??
+          "No Name",
+        image:
+          e.GuestEvent[0]?.Guest?.MainImageURL ??
+          e.TeacherEvent[0]?.Teacher?.MainImageURL ??
+          "notfound.jpg",
+      }
+
+      return {
+        title: e.Name ?? "No Name",
+        date: e.Date ?? "No Date",
+        startTime: e.StartTime ?? "No Start Time",
+        endTime: e.EndTime ?? "No End Time",
+        location: e.Location ?? "The Yoga Center",
+        hostName: host.name,
+        hostImage: `/images/${host.image}`,
+        eventId: e.EventId,
+        eventImage: `/images/${e.BannerImageURL}`,
+        activityTags:
+          e.TeacherEvent[0]?.Teacher?.TeacherActivity?.filter?.(
+            (a) => a.Activity.Title
+          ).map((a) => ({ text: a.Activity.Title ?? "other" })) ?? [],
+      }
+    })
 
     console.log("Events ok", JSON.stringify(events, null, 2))
 
