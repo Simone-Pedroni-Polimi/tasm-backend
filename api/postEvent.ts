@@ -82,12 +82,12 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       shortDesc: data.ShortIntroduction ?? "No Introduction",
       description: data.Description ?? "No Description",
       infostr: data.PracticalInfo ?? "No Info",
-      mainImageURL: `/images/${data.BannerImageURL ?? "notfound.jpg"}`,
+      mainImageURL: data.BannerImageURL ?? "notfound.jpg",
       programstr: data.Program ?? "No Program Yet",
       teachers: data.TeacherEvent.map(({ Teacher }) => ({
         name: Teacher.Name ?? "No Name",
         mantra: Teacher.Mantra ?? "No Mantra",
-        image: `/images/${Teacher.MainImageURL ?? "notfound.jpg"}`,
+        image: Teacher.MainImageURL ?? "notfound.jpg",
         activityTags: Teacher.TeacherActivity.filter(
           (a) => a.Activity.Title
         ).map((a) => ({ text: a.Activity.Title ?? "other" })),
