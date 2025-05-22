@@ -61,8 +61,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           e.TeacherEvent[0]?.Teacher?.Name ??
           "No Name",
         image:
-          e.GuestEvent[0]?.Guest?.Name ??
-          e.TeacherEvent[0]?.Teacher?.Name ??
+          e.GuestEvent[0]?.Guest?.MainImageURL ??
+          e.TeacherEvent[0]?.Teacher?.MainImageURL ??
           "notfound.jpg",
       }
 
