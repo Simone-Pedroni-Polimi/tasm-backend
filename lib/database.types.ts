@@ -76,7 +76,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "YogaCenter"
             referencedColumns: ["YogaCenterId"]
-          },
+          }
         ]
       }
       ActivityImages: {
@@ -106,7 +106,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Image"
             referencedColumns: ["ImageId"]
-          },
+          }
         ]
       }
       ActivitySchedule: {
@@ -136,7 +136,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Schedule"
             referencedColumns: ["ScheduleId"]
-          },
+          }
         ]
       }
       Certification: {
@@ -159,18 +159,18 @@ export type Database = {
       }
       Contact: {
         Row: {
+          ContactId: number
           ContactInfo: string | null
-          id: number
           YogaCenterId: number | null
         }
         Insert: {
+          ContactId?: number
           ContactInfo?: string | null
-          id?: number
           YogaCenterId?: number | null
         }
         Update: {
+          ContactId?: number
           ContactInfo?: string | null
-          id?: number
           YogaCenterId?: number | null
         }
         Relationships: [
@@ -180,43 +180,55 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "YogaCenter"
             referencedColumns: ["YogaCenterId"]
-          },
+          }
         ]
       }
       Event: {
         Row: {
           BannerImageURL: string | null
+          Date: string | null
           Description: string | null
+          EndTime: string | null
           EventId: number
           Highlights: boolean | null
+          Location: string | null
           Name: string | null
           PracticalInfo: string | null
           Program: string | null
           ShortIntroduction: string | null
+          StartTime: string | null
           Subtitle: string | null
           YogaCenterId: number
         }
         Insert: {
           BannerImageURL?: string | null
+          Date?: string | null
           Description?: string | null
+          EndTime?: string | null
           EventId?: number
           Highlights?: boolean | null
+          Location?: string | null
           Name?: string | null
           PracticalInfo?: string | null
           Program?: string | null
           ShortIntroduction?: string | null
+          StartTime?: string | null
           Subtitle?: string | null
           YogaCenterId: number
         }
         Update: {
           BannerImageURL?: string | null
+          Date?: string | null
           Description?: string | null
+          EndTime?: string | null
           EventId?: number
           Highlights?: boolean | null
+          Location?: string | null
           Name?: string | null
           PracticalInfo?: string | null
           Program?: string | null
           ShortIntroduction?: string | null
+          StartTime?: string | null
           Subtitle?: string | null
           YogaCenterId?: number
         }
@@ -227,7 +239,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "YogaCenter"
             referencedColumns: ["YogaCenterId"]
-          },
+          }
         ]
       }
       Guest: {
@@ -278,7 +290,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Guest"
             referencedColumns: ["GuestId"]
-          },
+          }
         ]
       }
       Image: {
@@ -347,7 +359,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Level"
             referencedColumns: ["Value"]
-          },
+          }
         ]
       }
       PracticalInfoLevel: {
@@ -380,7 +392,36 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "PracticalInfo"
             referencedColumns: ["PracticalInfoId", "ActivityId"]
-          },
+          }
+        ]
+      }
+      Pricing: {
+        Row: {
+          Price: number | null
+          PricingId: number
+          Title: string | null
+          YogaCenterId: number | null
+        }
+        Insert: {
+          Price?: number | null
+          PricingId?: number
+          Title?: string | null
+          YogaCenterId?: number | null
+        }
+        Update: {
+          Price?: number | null
+          PricingId?: number
+          Title?: string | null
+          YogaCenterId?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Pricing_YogaCenterId_fkey"
+            columns: ["YogaCenterId"]
+            isOneToOne: false
+            referencedRelation: "YogaCenter"
+            referencedColumns: ["YogaCenterId"]
+          }
         ]
       }
       Room: {
@@ -412,7 +453,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "YogaCenter"
             referencedColumns: ["YogaCenterId"]
-          },
+          }
         ]
       }
       Schedule: {
@@ -447,7 +488,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Level"
             referencedColumns: ["Value"]
-          },
+          }
         ]
       }
       SimilarActivity: {
@@ -477,7 +518,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Activity"
             referencedColumns: ["ActivityId"]
-          },
+          }
         ]
       }
       SimilarEvent: {
@@ -507,7 +548,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Event"
             referencedColumns: ["EventId"]
-          },
+          }
         ]
       }
       Teacher: {
@@ -548,7 +589,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "YogaCenter"
             referencedColumns: ["YogaCenterId"]
-          },
+          }
         ]
       }
       TeacherActivity: {
@@ -578,7 +619,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Teacher"
             referencedColumns: ["TeacherId"]
-          },
+          }
         ]
       }
       TeacherCert: {
@@ -608,7 +649,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Teacher"
             referencedColumns: ["TeacherId"]
-          },
+          }
         ]
       }
       TeacherEvent: {
@@ -638,7 +679,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Teacher"
             referencedColumns: ["TeacherId"]
-          },
+          }
         ]
       }
       TeacherImages: {
@@ -668,7 +709,7 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Teacher"
             referencedColumns: ["TeacherId"]
-          },
+          }
         ]
       }
       YogaCenter: {
@@ -722,7 +763,7 @@ export type Tables<
   }
     ? keyof (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
         Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never = never
 > = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
   ? (Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
       Database[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
@@ -731,14 +772,14 @@ export type Tables<
     ? R
     : never
   : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
-        Row: infer R
-      }
-      ? R
-      : never
+      DefaultSchema["Views"])
+  ? (DefaultSchema["Tables"] &
+      DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+      Row: infer R
+    }
+    ? R
     : never
+  : never
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
@@ -748,7 +789,7 @@ export type TablesInsert<
     schema: keyof Database
   }
     ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never = never
 > = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
   ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
@@ -756,12 +797,12 @@ export type TablesInsert<
     ? I
     : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Insert: infer I
-      }
-      ? I
-      : never
+  ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+      Insert: infer I
+    }
+    ? I
     : never
+  : never
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
@@ -771,7 +812,7 @@ export type TablesUpdate<
     schema: keyof Database
   }
     ? keyof Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never = never
 > = DefaultSchemaTableNameOrOptions extends { schema: keyof Database }
   ? Database[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
@@ -779,12 +820,12 @@ export type TablesUpdate<
     ? U
     : never
   : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
-        Update: infer U
-      }
-      ? U
-      : never
+  ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+      Update: infer U
+    }
+    ? U
     : never
+  : never
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
@@ -794,12 +835,12 @@ export type Enums<
     schema: keyof Database
   }
     ? keyof Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never = never
 > = DefaultSchemaEnumNameOrOptions extends { schema: keyof Database }
   ? Database[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
-    : never
+  ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+  : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
@@ -809,12 +850,12 @@ export type CompositeTypes<
     schema: keyof Database
   }
     ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
-    : never = never,
+    : never = never
 > = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
   ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
   : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
-    : never
+  ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  : never
 
 export const Constants = {
   graphql_public: {
