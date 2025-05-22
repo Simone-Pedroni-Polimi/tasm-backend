@@ -1,3 +1,4 @@
+import type { VercelRequest, VercelResponse } from "@vercel/node"
 import { supabase } from "../lib/supabase-typed"
 
 export type Teacher = {
@@ -41,7 +42,7 @@ interface ResponseData {
   teachers: Teacher[]
 }
 
-export default async function handler(req, res) {
+export default async (req: VercelRequest, res: VercelResponse) => {
   res.setHeader("Access-Control-Allow-Origin", "*")
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS")
   res.setHeader("Access-Control-Allow-Headers", "Content-Type")
@@ -52,24 +53,21 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" })
 
   try {
+    console.log("Retrieving Yoga Center")
     const { data: dataYogaCenter } = await supabase
       .from("YogaCenter")
       .select(
         `
         Title,
-        Subtitle, 
+        Subtitle,
         ShortOverview
       `
       )
       .limit(1)
       .single()
+    if (!dataYogaCenter) throw new Error("Yoga center not found")
 
-    if (!dataYogaCenter) {
-      return res.status(404).json({
-        error: ` yogacenter is not available!`,
-      })
-    }
-
+    console.log("Retrieving Teachers")
     const { data: dataTeachers } = await supabase.from("Teacher").select(`
         Name,
         Mantra,
@@ -80,56 +78,44 @@ export default async function handler(req, res) {
           )
         )
       `)
+    if (!dataTeachers) throw new Error("No Teachers in DB")
 
-    if (!dataTeachers) {
-      return res.status(404).json({
-        error: ` Teachers are not available!`,
-      })
-    }
-
+    console.log("Retrieving Activities")
     const { data: dataActivities } = await supabase.from("Activity").select(`
-       Title,
+      Title,
       BannerImageURL
     `)
+    if (!dataActivities) throw new Error("No Activities in DB")
 
-    if (!dataActivities) {
-      return res.status(404).json({
-        error: ` Activities are not available!`,
-      })
-    }
-
+    console.log("Retrieving Events")
     const { data: dataEvents } = await supabase.from("Event").select(`
-          EventId,
-            Date,
-            StartTime,
-            EndTime,
-            Location,
-            BannerImageURL,
+        EventId,
+        Date,
+        StartTime,
+        EndTime,
+        Location,
+        BannerImageURL,
+        Name,
+        ShortIntroduction,
+        GuestEvent(
+          Guest(
             Name,
-            ShortIntroduction,
-            GuestEvent(
-              Guest(
-                Name,
-                MainImageURL
+            MainImageURL
+          )
+        ),
+        TeacherEvent(
+          Teacher(
+            TeacherActivity(
+              Activity(
+                Title
               )
-            ),
-            TeacherEvent(
-              Teacher(
-                TeacherActivity(
-                  Activity(
-                    Title
-                  )
-                )  
-              )
-            )
-          
+            )  
+          )
+        )
       `)
+    if (!dataEvents) throw new Error("No Events in DB")
 
-    if (!dataEvents) {
-      return res.status(404).json({
-        error: ` Events are not available!`,
-      })
-    }
+    console.log("Composing Response")
 
     const YogaCenter: YogaCenter = {
       title: dataYogaCenter.Title ?? "No Title",
@@ -176,6 +162,8 @@ export default async function handler(req, res) {
 
     return res.status(200).json(resData)
   } catch (err) {
+    console.error("There was an error:")
+    console.error(JSON.stringify(err, null, 2))
     return res
       .status(500)
       .json({ error: "Internal server error while executing query", err })
