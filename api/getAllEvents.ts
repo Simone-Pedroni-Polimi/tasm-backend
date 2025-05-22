@@ -76,11 +76,13 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         hostImage: `/images/${host.image}`,
         eventId: e.EventId,
         eventImage: `/images/${e.BannerImageURL}`,
-        activityTags: e.TeacherEvent[0].Teacher.TeacherActivity.filter(
-          (a) => a.Activity.Title
-        ).map((a) => ({ text: a.Activity.Title ?? "other" })),
+        activityTags:
+          e.TeacherEvent[0]?.Teacher?.TeacherActivity?.filter?.(
+            (a) => a.Activity.Title
+          ).map((a) => ({ text: a.Activity.Title ?? "other" })) ?? [],
       }
     })
+
     res.status(200).json(events)
   }
 }
