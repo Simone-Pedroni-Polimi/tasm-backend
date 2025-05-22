@@ -1,4 +1,4 @@
-import { describe } from "node:test"
+
 import { supabase } from "../lib/supabase-typed"
 
 
@@ -39,6 +39,13 @@ interface Activity {
   image: string,
 }
 
+interface ResponseData {
+  yogaCenter: YogaCenter,
+  activities: Activity[],
+  events: Event[],
+  teachers: Teacher[],
+}
+
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*")
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS")
@@ -50,7 +57,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" })
 
   try {
-    const { dataYogaCenter } = await supabase
+    const { data:dataYogaCenter } = await supabase
       .from("YogaCenter")
       .select(
         `
@@ -58,7 +65,7 @@ export default async function handler(req, res) {
         Subtitle, 
         ShortOverview
       `
-      );
+      ).single()
       
 
     if (!dataYogaCenter) {
@@ -67,7 +74,7 @@ export default async function handler(req, res) {
       })
     }
 
-     const { dataTeachers} = await supabase
+     const { data:dataTeachers} = await supabase
       .from('Teacher')
       .select(`
         Name,
@@ -88,7 +95,7 @@ export default async function handler(req, res) {
     }
 
 
-    const { dataActivities} = await supabase
+    const {data: dataActivities} = await supabase
       .from('Activity')
       .select(`
        Title,
@@ -104,10 +111,10 @@ export default async function handler(req, res) {
 
 
     
-    const { dataEvents} = await supabase
-      .from('Teacher')
+    const { data:dataEvents} = await supabase
+      .from('Event')
        .select(`
-          Event(
+          EventId,
             Date,
             StartTime,
             EndTime,
@@ -120,8 +127,17 @@ export default async function handler(req, res) {
                 Name,
                 MainImageURL
               )
+            ),
+            TeacherEvent(
+              Teacher(
+                TeacherActivity(
+                  Activity(
+                    Title
+                  )
+                )  
+              )
             )
-          )
+          
       `)
       
 
@@ -131,10 +147,6 @@ export default async function handler(req, res) {
       })
     }
 
- 
-
-
-    
     const YogaCenter: YogaCenter = {
       title: dataYogaCenter.Title ?? "No Title",
       subtitle: dataYogaCenter.Subtitle ?? "No Title",
@@ -143,9 +155,42 @@ export default async function handler(req, res) {
     }
 
     
-     
+    const activities: Activity[] = dataActivities.map((activity) => ({
+      title: activity.Title ?? "No Title",
+      image: activity.BannerImageURL ?? "No Image"
+    }))
 
-    return res.status(200).json(activity)
+    const events: Event[] = dataEvents.map((event) => ({
+      eventId: event.EventId,
+      title: event.Name ?? "No Title",
+      eventImage: event.BannerImageURL ?? "No Image",
+      hostImage: event.GuestEvent[0].Guest.MainImageURL ?? "No Image",
+      hostName: event.GuestEvent[0].Guest.Name ?? "No Name",
+      date: event.Date ?? "No Date",
+      startTime: event.StartTime ?? "No Start Time",
+      endTime: event.EndTime ?? "No End Time",
+      location: event.Location ?? "No Location",
+      activityTags: event.TeacherEvent[0].Teacher.TeacherActivity.map((tag) => ({ text: tag.Activity.Title ?? "No Tag" })),
+    }))
+
+    const teachers: Teacher[] = dataTeachers.map((teacher) => ({
+      name: teacher.Name ?? "No Name",
+      image: teacher.MainImageURL ?? "No Image",
+      mantra: teacher.Mantra ?? "No Mantra",
+      activityTags: teacher.TeacherActivity.map((activity) => ({
+        text: activity.Activity.Title ?? "No Tag",
+      })),
+    }))
+
+    const resData: ResponseData = {
+      yogaCenter: YogaCenter,
+      activities: activities,
+      events: events,
+      teachers: teachers,
+    }
+
+
+    return res.status(200).json(resData)
   } catch (err) {
     return res
       .status(500)
