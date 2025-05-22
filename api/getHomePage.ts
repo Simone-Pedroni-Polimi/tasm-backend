@@ -1,39 +1,11 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node"
-import { supabase } from "../lib/supabase-typed"
-
-export type Teacher = {
-  name: string
-  image: string
-  mantra: string
-  activityTags: Array<{ text: string }>
-}
-
-interface YogaCenter {
-  title: string
-  subtitle?: string
-  description?: string
-  imgUrl?: string
-  altDescription?: string
-  imageOnTheRight: boolean
-}
-
-interface Event {
-  title: string
-  eventId: number
-  eventImage: string
-  hostImage: string
-  hostName: string
-  date: string
-  startTime: string
-  endTime: string
-  location: string
-  activityTags: Array<{ text: string }>
-}
-
-interface Activity {
-  title: string
-  image: string
-}
+import type {
+  YogaCenter,
+  Activity,
+  Teacher,
+  Event,
+} from "../lib/types/responses.types"
+import { supabase } from "../lib/supabase"
 
 interface ResponseData {
   yogaCenter: YogaCenter

@@ -1,33 +1,5 @@
-import { describe } from "node:test"
-import { supabase } from "../lib/supabase-typed"
-
-export type Teacher = {
-  name: string
-  image: string
-  mantra: string
-  activityTags: Array<{ text: string }>
-}
-
-interface ActivityType {
-  title: string
-  mainImageURL: string
-  description: string
-  nextLessons: {
-    date: string
-    time: string
-    name: string
-    difficulty: string
-  }[]
-  teachers: Teacher[]
-  info: {
-    name: string
-    description: string
-  }[][]
-  images: {
-    URL: string
-    alt: string
-  }[]
-}
+import type { ActivityType } from "../lib/types/responses.types"
+import { supabase } from "../lib/supabase"
 
 const levelMap: Record<string, string> = {
   Beginner: "🌿 Easy",

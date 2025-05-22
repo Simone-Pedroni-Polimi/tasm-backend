@@ -1,3 +1,8 @@
+/**
+ * FILE GENERATE AUTOMATICALLY BY SUPABASE, DO NOT EDIT UNLESS BY REGENERATING IT
+ * Contains the type definitions for the Supabase DB
+ */
+
 export type Json =
   | string
   | number
