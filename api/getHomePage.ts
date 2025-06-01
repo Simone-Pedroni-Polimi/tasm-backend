@@ -62,7 +62,7 @@ export default async function handler(req, res) {
       `
       )
       .limit(1)
-      .single()
+      .maybeSingle()
 
     if (!dataYogaCenter) {
       return res.status(404).json({
@@ -78,8 +78,7 @@ export default async function handler(req, res) {
           Activity(
             Title
           )
-        )
-      `)
+        )`)
 
     if (!dataTeachers) {
       return res.status(404).json({
