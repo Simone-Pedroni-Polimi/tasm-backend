@@ -101,7 +101,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     const activities: Activity[] = dataActivities.map((activity) => ({
       title: activity.Title ?? "No Title",
-      image: activity.BannerImageURL ?? "No Image",
+      image: `/images/${activity.BannerImageURL}`
+      
     }))
 
     console.log("Activities ok", JSON.stringify(activities, null, 2))
