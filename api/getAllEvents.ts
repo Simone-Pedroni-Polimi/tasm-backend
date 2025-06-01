@@ -1,18 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node"
-import { supabase } from "../lib/supabase-typed"
-
-export type Event = {
-  title: string
-  eventId: number
-  eventImage: string
-  hostImage: string
-  hostName: string
-  date: string
-  startTime: string
-  endTime: string
-  location: string
-  activityTags: Array<{ text: string }>
-}
+import type { Event } from "../lib/types/responses.types"
+import { supabase } from "../lib/supabase"
 
 export default async (req: VercelRequest, res: VercelResponse) => {
   res.setHeader("Access-Control-Allow-Origin", "*")

@@ -12,7 +12,10 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
         const { data, error } = await supabase
             .from('Faqs')
-            .select();
+            .select(`
+                Question,
+                Answer
+            `);
 
         if (error) {
             res.status(500).json({ error: error.message });

@@ -1,38 +1,11 @@
-import { supabase } from "../lib/supabase-typed"
-
-export type Teacher = {
-  name: string
-  image: string
-  mantra: string
-  activityTags: Array<{ text: string }>
-}
-
-interface YogaCenter {
-  title: string
-  subtitle?: string
-  description?: string
-  imgUrl?: string
-  altDescription?: string
-  imageOnTheRight: boolean
-}
-
-interface Event {
-  title: string
-  eventId: number
-  eventImage: string
-  hostImage: string
-  hostName: string
-  date: string
-  startTime: string
-  endTime: string
-  location: string
-  activityTags: Array<{ text: string }>
-}
-
-interface Activity {
-  title: string
-  image: string
-}
+import type { VercelRequest, VercelResponse } from "@vercel/node"
+import type {
+  YogaCenter,
+  Activity,
+  Teacher,
+  Event,
+} from "../lib/types/responses.types"
+import { supabase } from "../lib/supabase"
 
 interface ResponseData {
   yogaCenter: YogaCenter
@@ -41,7 +14,7 @@ interface ResponseData {
   teachers: Teacher[]
 }
 
-export default async function handler(req, res) {
+export default async (req: VercelRequest, res: VercelResponse) => {
   res.setHeader("Access-Control-Allow-Origin", "*")
   res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS")
   res.setHeader("Access-Control-Allow-Headers", "Content-Type")
@@ -52,24 +25,20 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed" })
 
   try {
+    console.log("Retrieving Yoga Center")
     const { data: dataYogaCenter } = await supabase
       .from("YogaCenter")
       .select(
         `
         Title,
-        Subtitle, 
+        Subtitle,
         ShortOverview
       `
       )
       .limit(1)
       .maybeSingle()
 
-    if (!dataYogaCenter) {
-      return res.status(404).json({
-        error: ` yogacenter is not available!`,
-      })
-    }
-
+    console.log("Retrieving Teachers")
     const { data: dataTeachers } = await supabase.from("Teacher").select(`
         Name,
         Mantra,
@@ -78,84 +47,95 @@ export default async function handler(req, res) {
           Activity(
             Title
           )
-        )`)
+        )
+      `)
+    if (!dataTeachers) throw new Error("No Teachers in DB")
 
-    if (!dataTeachers) {
-      return res.status(404).json({
-        error: ` Teachers are not available!`,
-      })
-    }
-
+    console.log("Retrieving Activities")
     const { data: dataActivities } = await supabase.from("Activity").select(`
-       Title,
+      Title,
       BannerImageURL
     `)
+    if (!dataActivities) throw new Error("No Activities in DB")
 
-    if (!dataActivities) {
-      return res.status(404).json({
-        error: ` Activities are not available!`,
-      })
-    }
-
+    console.log("Retrieving Events")
     const { data: dataEvents } = await supabase.from("Event").select(`
-          EventId,
-            Date,
-            StartTime,
-            EndTime,
-            Location,
-            BannerImageURL,
+        EventId,
+        Date,
+        StartTime,
+        EndTime,
+        Location,
+        BannerImageURL,
+        Name,
+        ShortIntroduction,
+        GuestEvent(
+          Guest(
             Name,
-            ShortIntroduction,
-            GuestEvent(
-              Guest(
-                Name,
-                MainImageURL
+            MainImageURL
+          )
+        ),
+        TeacherEvent(
+          Teacher(
+            Name,
+            MainImageURL,
+            TeacherActivity(
+              Activity(
+                Title
               )
-            ),
-            TeacherEvent(
-              Teacher(
-                TeacherActivity(
-                  Activity(
-                    Title
-                  )
-                )  
-              )
-            )
-          
+            )  
+          )
+        )
       `)
+    if (!dataEvents) throw new Error("No Events in DB")
 
-    if (!dataEvents) {
-      return res.status(404).json({
-        error: ` Events are not available!`,
-      })
-    }
+    console.log("Composing Response")
 
-    const YogaCenter: YogaCenter = {
-      title: dataYogaCenter.Title ?? "No Title",
-      subtitle: dataYogaCenter.Subtitle ?? "No Title",
-      description: dataYogaCenter.ShortOverview ?? "No Description",
+    const yogaCenter: YogaCenter = {
+      title: dataYogaCenter?.Title ?? "No Title",
+      subtitle: dataYogaCenter?.Subtitle ?? "No Title",
+      description: dataYogaCenter?.ShortOverview ?? "No Description",
       imageOnTheRight: false,
     }
+
+    console.log("Center ok", JSON.stringify(yogaCenter, null, 2))
 
     const activities: Activity[] = dataActivities.map((activity) => ({
       title: activity.Title ?? "No Title",
       image: activity.BannerImageURL ?? "No Image",
     }))
 
-    const events: Event[] = dataEvents.map((event) => ({
-      eventId: event.EventId,
-      title: event.Name ?? "No Title",
-      eventImage: event.BannerImageURL ?? "No Image",
-      hostImage: event.GuestEvent[0].Guest.MainImageURL ?? "No Image",
-      hostName: event.GuestEvent[0].Guest.Name ?? "No Name",
-      date: event.Date ?? "No Date",
-      startTime: event.StartTime ?? "No Start Time",
-      endTime: event.EndTime ?? "No End Time",
-      location: event.Location ?? "No Location",
-      activityTags: event.TeacherEvent[0].Teacher.TeacherActivity.map(
-        (tag) => ({ text: tag.Activity.Title ?? "No Tag" })
-      ),
-    }))
+    console.log("Activities ok", JSON.stringify(activities, null, 2))
+
+    const events: Event[] = dataEvents.map((e) => {
+      const host: { name: string; image: string } = {
+        name:
+          e.GuestEvent[0]?.Guest?.Name ??
+          e.TeacherEvent[0]?.Teacher?.Name ??
+          "No Name",
+        image:
+          e.GuestEvent[0]?.Guest?.MainImageURL ??
+          e.TeacherEvent[0]?.Teacher?.MainImageURL ??
+          "notfound.jpg",
+      }
+
+      return {
+        title: e.Name ?? "No Name",
+        date: e.Date ?? "No Date",
+        startTime: e.StartTime ?? "No Start Time",
+        endTime: e.EndTime ?? "No End Time",
+        location: e.Location ?? "The Yoga Center",
+        hostName: host.name,
+        hostImage: `/images/${host.image}`,
+        eventId: e.EventId,
+        eventImage: `/images/${e.BannerImageURL}`,
+        activityTags:
+          e.TeacherEvent[0]?.Teacher?.TeacherActivity?.filter?.(
+            (a) => a.Activity.Title
+          ).map((a) => ({ text: a.Activity.Title ?? "other" })) ?? [],
+      }
+    })
+
+    console.log("Events ok", JSON.stringify(events, null, 2))
 
     const teachers: Teacher[] = dataTeachers.map((teacher) => ({
       name: teacher.Name ?? "No Name",
@@ -166,15 +146,22 @@ export default async function handler(req, res) {
       })),
     }))
 
+    console.log("Teacher ok", JSON.stringify(yogaCenter, null, 2))
+
     const resData: ResponseData = {
-      yogaCenter: YogaCenter,
-      activities: activities,
-      events: events,
-      teachers: teachers,
+      yogaCenter,
+      activities,
+      events,
+      teachers,
     }
+
+    console.log("Composed response data")
+    console.log(JSON.stringify(resData, null, 2))
 
     return res.status(200).json(resData)
   } catch (err) {
+    console.error("There was an error:")
+    console.error(JSON.stringify(err, null, 2))
     return res
       .status(500)
       .json({ error: "Internal server error while executing query", err })
