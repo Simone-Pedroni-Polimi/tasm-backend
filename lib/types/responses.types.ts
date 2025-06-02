@@ -68,3 +68,8 @@ export interface EventType {
     description: string
   }
 }
+
+export interface Contact {
+  contactId: number
+  contactInfo: string
+}
