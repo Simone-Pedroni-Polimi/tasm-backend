@@ -22,31 +22,33 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   if (error) {
     res.status(500).json({ error: error.message })
   } else {
-    let n: number = 1
+    let room: YogaCenter["rooms"] | undefined = undefined
+    let n: number = 0
 
-    res.status(200).json(
-        data.map((y) => ({
-            title: y.Title ?? "No title",
-            subtitle: y.Subtitle ?? "No subtitle",
-            description: y.LongDesprition ?? "No description",
-            rooms: data.map(() => ({
-                name: y.Room.Name ?? "No room name",
-                text: y.Room.Text ?? "No room text",
-                urlImage: `/images/${y.Room.UrlImage}`,
-                altDescription: y.Room.Name + "room",
-                imageOnTheRight: () => {
-                  if (n % 2 != 0) {
-                    return true
-                    n++
-                  }
-                  else {
-                    return false
-                    n++
-                  }
-                }
-              })
-            )
-        }))
+    room = data.Room.map(({ Room }) => ({
+        name: Room.name ?? "No room name",
+        text: Room.text ?? "No room text",
+        urlImage: `/images/${Room.UrlImage}`,
+        altDescription: Room.name + " room",
+        imageOnTheRight: (n) => {
+          if (n % 2 === 0) {
+            return true
+            n++
+          } else {
+            return false
+            n++
+          }
+        },
+      })
     )
+  
+    const yogaCenter: YogaCenter = {
+      title: data.Title ?? "No title",
+      subtitle: data.Subtitle ?? "No subtitle",
+      description: data.LongDescription ?? "No description",
+      room
+    }
+
+    res.status(200).json(yogaCenter)
   }
 }
