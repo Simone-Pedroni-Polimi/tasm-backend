@@ -22,6 +22,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   if (error) {
     res.status(500).json({ error: error.message })
   } else {
+    let n: number = 1
+
     res.status(200).json(
         data.map((y) => ({
             title: y.Title ?? "No title",
@@ -31,6 +33,14 @@ export default async (req: VercelRequest, res: VercelResponse) => {
                 name: y.Room.Name ?? "No room name",
                 text: y.Room.Text ?? "No room text",
                 urlImage: `/images/${y.Room.UrlImage}`,
+                altDescription: y.Room.Name + "room",
+                imageOnTheRight: () => {
+                  if (n % 2 != 0) {
+                    return true
+                    n++
+                  }
+                  else return false
+                }
               })
             )
         }))
