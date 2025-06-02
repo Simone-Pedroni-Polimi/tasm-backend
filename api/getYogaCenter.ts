@@ -26,11 +26,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     let n: number = 0
     function evenOrOdd(n: number) {
       if (n % 2 === 0){
-        n++
-        return true
+        n++;
+        return true;
       } else {
-        n++
-        return false
+        n++;
+        return false;
       }
     }
 
