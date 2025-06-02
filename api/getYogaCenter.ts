@@ -29,7 +29,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
             title: y.Title ?? "No title",
             subtitle: y.Subtitle ?? "No subtitle",
             description: y.LongDesprition ?? "No description",
-            rooms: data.map(() => ({
+            rooms: data.map((y) => ({
                 name: y.Room.Name ?? "No room name",
                 text: y.Room.Text ?? "No room text",
                 urlImage: `/images/${y.Room.UrlImage}`,
@@ -39,7 +39,10 @@ export default async (req: VercelRequest, res: VercelResponse) => {
                     return true
                     n++
                   }
-                  else return false
+                  else {
+                    return false
+                    n++
+                  }
                 }
               })
             )
