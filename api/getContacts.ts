@@ -20,8 +20,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     res.status(500).json({ error: error.message })
   } else {
     const contacts: Contact[] = data.map(() => ({
-        contactId: data?.ContactId ?? "No ID",
-        contactInfo: data?.ContactInfo ?? "No info",
+        contactId: data.ContactId ?? "No ID",
+        contactInfo: data.ContactInfo ?? "No info",
       })
     )
 
