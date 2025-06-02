@@ -25,6 +25,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       })
     )
 
-    res.status(200).json(contacts)
+    const contactResponses: Contact[] = contacts
+    res.status(200).json(contactResponses)
   }
 }
