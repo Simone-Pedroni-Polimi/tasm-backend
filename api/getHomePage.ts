@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node"
 import type {
-  YogaCenter,
+  YogaCenterHomePage,
   Activity,
   Teacher,
   Event,
@@ -8,7 +8,7 @@ import type {
 import { supabase } from "../lib/supabase"
 
 interface ResponseData {
-  yogaCenter: YogaCenter
+  yogaCenter: YogaCenterHomePage
   activities: Activity[]
   events: Event[]
   teachers: Teacher[]
@@ -90,7 +90,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     console.log("Composing Response")
 
-    const yogaCenter: YogaCenter = {
+    const yogaCenter: YogaCenterHomePage = {
       title: dataYogaCenter?.Title ?? "No Title",
       subtitle: dataYogaCenter?.Subtitle ?? "No Title",
       description: dataYogaCenter?.ShortOverview ?? "No Description",
