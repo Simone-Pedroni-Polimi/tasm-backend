@@ -26,7 +26,7 @@ export interface ActivityType {
   }[]
 }
 
-export interface YogaCenter {
+export interface YogaCenterHomePage {
   title: string
   subtitle?: string
   description?: string
