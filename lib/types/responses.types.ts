@@ -47,7 +47,13 @@ export interface YogaCenter {
   title: string
   subtitle: string
   description: string
-  rooms: Room[]
+  rooms: {
+    name: string
+    text: string
+    urlImage: string
+    altDescription: string
+    imageOnTheRight: boolean
+  }
 }
 
 export interface Event {
