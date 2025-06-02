@@ -35,17 +35,17 @@ export interface YogaCenterHomePage {
   imageOnTheRight: boolean
 }
 
-export interface Room {
-  name: string
-  text: string
-  urlImage: string
-}
-
 export interface YogaCenter {
   title: string
   subtitle: string
   description: string
-  rooms: Array<{ room: Room }>
+  rooms: {
+    name: string
+    text: string
+    urlImage: string
+    altDescription: string
+    imageOnTheRight: boolean
+  } []
 }
 
 export interface Event {
