@@ -24,21 +24,22 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   } else {
     let room: YogaCenter["rooms"] | undefined = undefined
     let n: number = 0
+    function evenOrOdd(n: number) {
+      if (n % 2 === 0){
+        n++
+        return true
+      } else {
+        n++
+        return false
+      }
+    }
 
     room = data.Room.map(({ Room }) => ({
         name: Room.name ?? "No room name",
         text: Room.text ?? "No room text",
         urlImage: `/images/${Room.UrlImage}`,
         altDescription: Room.name + " room",
-        imageOnTheRight: (n) => {
-          if (n % 2 === 0) {
-            return true
-            n++
-          } else {
-            return false
-            n++
-          }
-        },
+        imageOnTheRight: evenOrOdd(n)
       })
     )
   
