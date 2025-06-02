@@ -29,8 +29,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
             title: y.Title ?? "No title",
             subtitle: y.Subtitle ?? "No subtitle",
             description: y.LongDesprition ?? "No description",
-            rooms: data.map((y) => ({
-                name: y.Room ?? "No room name",
+            rooms: data.map((r) => ({
+                name: r.Name ?? "No room name",
                 text: y.Room.Text ?? "No room text",
                 urlImage: `/images/${y.Room.UrlImage}`,
                 altDescription: y.Room.Name + "room",
