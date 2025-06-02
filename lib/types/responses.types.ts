@@ -5,6 +5,14 @@ export type Teacher = {
   activityTags: Array<{ text: string }>
 }
 
+export type Room = {
+  name: string
+  text: string
+  urlImage: string
+  altDescription: string
+  imageOnTheRight: boolean
+}
+
 export interface ActivityType {
   title: string
   mainImageURL: string
@@ -39,13 +47,7 @@ export interface YogaCenter {
   title: string
   subtitle: string
   description: string
-  rooms: {
-    name: string
-    text: string
-    urlImage: string
-    altDescription: string
-    imageOnTheRight: boolean
-  } []
+  rooms: Room[]
 }
 
 export interface Event {
