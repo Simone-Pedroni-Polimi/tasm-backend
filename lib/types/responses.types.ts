@@ -53,7 +53,7 @@ export interface YogaCenter {
     urlImage: string
     altDescription: string
     imageOnTheRight: boolean
-  }
+  }[]
 }
 
 export interface Event {
