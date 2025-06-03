@@ -47,7 +47,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       title: data.Title ?? "No title",
       subtitle: data.Subtitle ?? "No subtitle",
       description: data.LongDescription ?? "No description",
-      room
+      rooms: room
     }
 
     res.status(200).json(yogaCenter)
