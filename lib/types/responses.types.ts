@@ -6,8 +6,8 @@ export type Teacher = {
 }
 
 export type Room = {
-  name: string
-  text: string
+  title: string
+  description: string
   urlImage: string
   altDescription: string
   imageOnTheRight: boolean
@@ -47,13 +47,7 @@ export interface YogaCenter {
   title: string
   subtitle: string
   description: string
-  rooms: {
-    name: string
-    text: string
-    urlImage: string
-    altDescription: string
-    imageOnTheRight: boolean
-  }[]
+  rooms: Room[]
 }
 
 export interface Event {
@@ -73,7 +67,7 @@ export interface Event {
 export interface Activity {
   title: string
   image: string
-  highlights?: boolean 
+  highlights?: boolean
 }
 
 export interface EventType {
@@ -102,7 +96,7 @@ export interface Faq {
   answer: string
 }
 
-export interface Highlights{
+export interface Highlights {
   highlightEvents: Event[]
   highlightActivities: Activity[]
 }
