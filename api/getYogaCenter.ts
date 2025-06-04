@@ -17,7 +17,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       Subtitle,
       LongDescription,
       Room (Name, Text, UrlImage)
-    `)
+    `).single()
 
   if (error) {
     res.status(500).json({ error: error.message })
