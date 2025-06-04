@@ -37,7 +37,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           )
         )
       )
-    `).order('Date, { ascending: true }')
+    `).order('Date', { ascending: true })
 
   if (error) {
     res.status(500).json({ error: error.message })
