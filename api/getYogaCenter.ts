@@ -28,7 +28,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     res.status(500).json({ error: error.message })
   } else {
     let n: number = 0
-    function evenOrOdd(n: number) {
+    function evenOrOdd() {
       if (n % 2 === 0) {
         n++
         return true
@@ -43,7 +43,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       description: Room.Text ?? "No room description",
       imgUrl: `/images/${Room.UrlImage}`,
       altDescription: Room.Name + " room",
-      imageOnTheRight: evenOrOdd(n),
+      imageOnTheRight: evenOrOdd(),
     }))
 
     const yogaCenter: YogaCenter = {
