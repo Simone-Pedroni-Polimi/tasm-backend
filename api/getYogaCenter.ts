@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node"
 import { YogaCenter } from "../lib/types/responses.types"
-import { Room } from "../lib/ypes/responses.types"
+import { Room } from "../lib/types/responses.types"
 import { supabase } from "../lib/supabase"
 
 export default async (req: VercelRequest, res: VercelResponse) => {
@@ -12,42 +12,45 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     return res.status(200).end()
   }
 
-  const { data, error } = await supabase.from("YogaCenter").select(`
+  const { data, error } = await supabase
+    .from("YogaCenter")
+    .select(
+      `
       Title,
       Subtitle,
       LongDescription,
       Room (Name, Text, UrlImage)
-    `)
+    `
+    )
+    .single()
 
   if (error) {
     res.status(500).json({ error: error.message })
   } else {
-    let room: YogaCenter["rooms"] | undefined = undefined
     let n: number = 0
     function evenOrOdd(n: number) {
-      if (n % 2 === 0){
-        n++;
-        return true;
+      if (n % 2 === 0) {
+        n++
+        return true
       } else {
-        n++;
-        return false;
+        n++
+        return false
       }
     }
 
-    room = data.Room.map(({ Room }) => ({
-        name: Room.name ?? "No room name",
-        text: Room.text ?? "No room text",
-        urlImage: `/images/${Room.UrlImage}`,
-        altDescription: Room.name + " room",
-        imageOnTheRight: evenOrOdd(n)
-      })
-    )
-  
+    const rooms: Room[] = data.Room.map((Room) => ({
+      name: Room.Name ?? "No room name",
+      text: Room.Text ?? "No room text",
+      urlImage: `/images/${Room.UrlImage}`,
+      altDescription: Room.Name + " room",
+      imageOnTheRight: evenOrOdd(n),
+    }))
+
     const yogaCenter: YogaCenter = {
       title: data.Title ?? "No title",
       subtitle: data.Subtitle ?? "No subtitle",
       description: data.LongDescription ?? "No description",
-      rooms: room
+      rooms,
     }
 
     res.status(200).json(yogaCenter)
