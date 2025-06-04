@@ -94,3 +94,8 @@ export interface Contact {
   contactId: number
   contactInfo: string
 }
+
+export interface Faq {
+  question: string
+  answer: string
+}
