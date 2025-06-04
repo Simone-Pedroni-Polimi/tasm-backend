@@ -8,7 +8,7 @@ export type Teacher = {
 export type Room = {
   title: string
   description: string
-  urlImage: string
+  imgUrl: string
   altDescription: string
   imageOnTheRight: boolean
 }

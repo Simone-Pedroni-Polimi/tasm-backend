@@ -41,7 +41,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     const rooms: Room[] = data.Room.map((Room) => ({
       title: Room.Name ?? "No room name",
       description: Room.Text ?? "No room description",
-      urlImage: `/images/${Room.UrlImage}`,
+      imgUrl: `/images/${Room.UrlImage}`,
       altDescription: Room.Name + " room",
       imageOnTheRight: evenOrOdd(n),
     }))
