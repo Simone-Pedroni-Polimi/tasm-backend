@@ -13,6 +13,7 @@ interface ResponseData {
   activities: Activity[]
   events: Event[]
   teachers: Teacher[]
+  highlights: Highlights
 }
 
 export default async (req: VercelRequest, res: VercelResponse) => {
@@ -104,8 +105,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     const activities: Activity[] = dataActivities.map((activity) => ({
       title: activity.Title ?? "No Title",
-      image: `/images/${activity.BannerImageURL}`
-      
+      image: `/images/${activity.BannerImageURL}`,
+      highlights: activity.Highlights ?? false,
     }))
 
     console.log("Activities ok", JSON.stringify(activities, null, 2))
@@ -132,6 +133,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         hostImage: `/images/${host.image}`,
         eventId: e.EventId,
         eventImage: `/images/${e.BannerImageURL}`,
+        highlights: e.Highlights ?? false,
         activityTags:
           e.TeacherEvent[0]?.Teacher?.TeacherActivity?.filter?.(
             (a) => a.Activity.Title
@@ -152,21 +154,17 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     console.log("Teacher ok", JSON.stringify(yogaCenter, null, 2))
 
-    /*const highlights: Highlights = {
-      highlightEvents: events.map((event) => {
-
-        if(event?.Highlights) 
-          return event          
-        
-      }),
-      highlightActivities: activities.slice(0, 3),
-    }*/
+    const highlights: Highlights = {
+      highlightEvents: events.filter((event) => event.highlights === true),
+      highlightActivities: activities.filter((activity) => activity.highlights === true),
+    }
 
     const resData: ResponseData = {
       yogaCenter,
       activities,
       events,
       teachers,
+      highlights,
     }
 
     console.log("Composed response data")

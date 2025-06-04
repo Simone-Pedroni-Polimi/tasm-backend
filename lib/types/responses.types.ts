@@ -67,11 +67,13 @@ export interface Event {
   endTime: string
   location: string
   activityTags: Array<{ text: string }>
+  highlights?: boolean
 }
 
 export interface Activity {
   title: string
   image: string
+  highlights?: boolean 
 }
 
 export interface EventType {
