@@ -4,6 +4,7 @@ import type {
   Activity,
   Teacher,
   Event,
+  Highlights
 } from "../lib/types/responses.types"
 import { supabase } from "../lib/supabase"
 
@@ -54,7 +55,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     console.log("Retrieving Activities")
     const { data: dataActivities } = await supabase.from("Activity").select(`
       Title,
-      BannerImageURL
+      BannerImageURL,
+      Highlights
     `)
     if (!dataActivities) throw new Error("No Activities in DB")
 
@@ -68,6 +70,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         BannerImageURL,
         Name,
         ShortIntroduction,
+        Highlights,
         GuestEvent(
           Guest(
             Name,
@@ -148,6 +151,16 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     }))
 
     console.log("Teacher ok", JSON.stringify(yogaCenter, null, 2))
+
+    /*const highlights: Highlights = {
+      highlightEvents: events.map((event) => {
+
+        if(event?.Highlights) 
+          return event          
+        
+      }),
+      highlightActivities: activities.slice(0, 3),
+    }*/
 
     const resData: ResponseData = {
       yogaCenter,

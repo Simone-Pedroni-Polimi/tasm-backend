@@ -99,3 +99,8 @@ export interface Faq {
   question: string
   answer: string
 }
+
+export interface Highlights{
+  highlightEvents: Event[]
+  highlightActivities: Activity[]
+}
