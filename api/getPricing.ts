@@ -44,7 +44,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       title: p.Title ?? "No title",
       subtitle: p.Subtitle ?? "No subtitle",
       price: p.Price ?? "No price",
-      items,
+      pricingItems: p.pricingItems.filter?.(
+        (i) => i.Item
+      ).map((i) => ({ item: i.Item ?? "No item" })) ?? [],
       darkMode: evenOrOdd(), 
     }))
   }
