@@ -40,12 +40,12 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       item: Item.item ?? "No item",
     }))
 
-    const pricing: Pricing = {
+    const pricing: Pricing = data.map((p) => ({
       title: data.Title ?? "No title",
       subtitle: data.Subtitle ?? "No subtitle",
       price: data.Price ?? "No price",
       items,
       darkMode: evenOrOdd(), 
-    }
+    }))
   }
 }
