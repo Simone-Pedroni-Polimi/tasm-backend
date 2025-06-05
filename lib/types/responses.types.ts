@@ -101,10 +101,14 @@ export interface Highlights {
   highlightActivities: Activity[]
 }
 
+export interface Item {
+  item: string
+}
+
 export interface Pricing {
   title: string
   subtitle: string
   price: number,
-  pricingItems: Array<{ item: string }>
+  pricingItems: Item[]
   darkMode: boolean
 }
