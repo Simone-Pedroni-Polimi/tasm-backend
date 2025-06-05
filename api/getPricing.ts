@@ -44,7 +44,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       title: data.Title ?? "No title",
       subtitle: data.Subtitle ?? "No subtitle",
       price: data.Price ?? "No price",
-      items,
+      pricingItems: items,
       darkMode: evenOrOdd(), 
     }))
   }
