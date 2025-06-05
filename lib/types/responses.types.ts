@@ -100,3 +100,11 @@ export interface Highlights {
   highlightEvents: Event[]
   highlightActivities: Activity[]
 }
+
+export interface Pricing {
+  title: string
+  subtitle: string
+  price: number,
+  pricingItems: Array<{ item: string }>
+  darkMode: boolean
+}
