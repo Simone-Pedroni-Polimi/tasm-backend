@@ -36,9 +36,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       }
     }
 
-    const pricing: Pricing[] = data.map((p) => {
+    const pricing: Pricing[] = data.map((p: Pricing) => {
       const pricingItems: Item[] = p.PricingListItem?.filter(
-        (i) => i.item
+        (i: Item) => i.item
       ).map((i) => ({
         item: i.Item ?? "No item",
       })) || []
@@ -46,7 +46,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       return {
         title: p.Title ?? "No title",
         subtitle: p.Subtitle ?? "No subtitle",
-        price: p.Price ?? "No price",
+        price: p.Price ?? 0,
         pricingItems: pricingItems,
         darkMode: evenOrOdd(),
       }
