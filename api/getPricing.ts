@@ -49,5 +49,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       ).map((i) => ({ item: i.Item ?? "No item" })) ?? [],
       darkMode: evenOrOdd(), 
     }))
+
+    res.status(200).json(pricing)
   }
 }
