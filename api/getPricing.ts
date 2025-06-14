@@ -12,9 +12,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     return res.status(200).end()
   }
 
-  const { data, error } = await supabase
-    .from("Pricing")
-    .select(`
+  const { data, error } = await supabase.from("Pricing").select(`
       PricingId,
       Title,
       Subtitle,
@@ -36,12 +34,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       }
     }
 
-    const pricing: Pricing[] = data.map((p: Pricing) => {
-      const pricingItems: Item[] = p.PricingListItem?.filter(
-        (i: Item) => i.item
-      ).map((i) => ({
-        item: i.Item ?? "No item",
-      })) || []
+    const pricing: Pricing[] = data.map((p) => {
+      const pricingItems: Item[] =
+        p.PricingListItem?.filter((i) => i.Item).map((i) => ({
+          item: i.Item ?? "No item",
+        })) ?? []
 
       return {
         title: p.Title ?? "No title",
