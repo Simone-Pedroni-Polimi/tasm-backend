@@ -1,5 +1,4 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node"
-import { Faq } from "../lib/types/responses.types"
 import { supabase } from "../lib/supabase"
 
 export default async (req: VercelRequest, res: VercelResponse) => {

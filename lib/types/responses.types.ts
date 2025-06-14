@@ -1,4 +1,5 @@
 export type Teacher = {
+  teacherId: number
   name: string
   image: string
   mantra: string
@@ -122,11 +123,6 @@ export interface EventType {
 export interface Contact {
   contactId: number
   contactInfo: string
-}
-
-export interface Faq {
-  question: string
-  answer: string
 }
 
 export interface Highlights {
