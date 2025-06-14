@@ -13,6 +13,39 @@ export type Room = {
   imageOnTheRight: boolean
 }
 
+export interface TeacherType {
+  name: string,
+  mantra: string,
+  description: string,
+  history: string,
+  bannerImageURL: string,
+  mainImageURL: string,
+  certifications: Array<{
+    title: string,
+  }>,
+  activities: Array<{
+    title: string,
+    bannerImageURL: string,
+  }>,
+  images: Array<{
+    URL: string,
+    alt: string,
+  }>,
+  events: Array<{
+    name: string,
+    shortIntroduction: string
+    date: string,
+    startTime: string,
+    endTime: string,
+    location: string,
+    guests: Array<{
+        name: string,
+        mainImageURL: string,
+    }>,
+    bannerImageURL: string,
+  }>,
+}
+
 export interface ActivityType {
   title: string
   mainImageURL: string
