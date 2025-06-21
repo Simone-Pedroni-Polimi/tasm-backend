@@ -70,6 +70,7 @@ export default async function handler(req, res) {
       .eq("URL", TeacherURL)
       .single()
 
+
     if (!data) {
       return res.status(404).json({ error: "Teacher not found" })
     }
