@@ -43,6 +43,7 @@ export type Database = {
           Highlights: boolean | null
           ResponsibleTeacherId: number | null
           Title: string | null
+          URL: string | null
           YogaCenterId: number | null
         }
         Insert: {
@@ -53,6 +54,7 @@ export type Database = {
           Highlights?: boolean | null
           ResponsibleTeacherId?: number | null
           Title?: string | null
+          URL?: string | null
           YogaCenterId?: number | null
         }
         Update: {
@@ -63,6 +65,7 @@ export type Database = {
           Highlights?: boolean | null
           ResponsibleTeacherId?: number | null
           Title?: string | null
+          URL?: string | null
           YogaCenterId?: number | null
         }
         Relationships: [
@@ -610,6 +613,7 @@ export type Database = {
           Mantra: string | null
           Name: string | null
           TeacherId: number
+          URL: string | null
           YogaCenterId: number | null
         }
         Insert: {
@@ -620,6 +624,7 @@ export type Database = {
           Mantra?: string | null
           Name?: string | null
           TeacherId?: number
+          URL?: string | null
           YogaCenterId?: number | null
         }
         Update: {
@@ -630,6 +635,7 @@ export type Database = {
           Mantra?: string | null
           Name?: string | null
           TeacherId?: number
+          URL?: string | null
           YogaCenterId?: number | null
         }
         Relationships: [

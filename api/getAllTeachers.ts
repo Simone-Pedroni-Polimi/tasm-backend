@@ -16,6 +16,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       Name,
       Mantra,
       MainImageURL,
+      URL,
       TeacherActivity(
         Activity(
           Title
@@ -27,10 +28,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     res.status(500).json({ error: error.message })
   } else {
     const teachers: Teacher[] = data.map((t) => ({
-      teacherId: t.TeacherId ?? "No id",
+      teacherId: t.TeacherId ?? 0,
       name: t.Name ?? "No name",
       image: t.MainImageURL ?? "No image",
       mantra: t.Mantra ?? "No mantra",
+      url: t.URL ?? "No URL",
       activityTags: t.TeacherActivity.map(({ Activity }) => ({
         text: Activity.Title ?? "No activity title",
       }))

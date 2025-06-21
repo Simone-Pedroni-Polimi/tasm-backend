@@ -3,6 +3,7 @@ export type Teacher = {
   name: string
   image: string
   mantra: string
+  url: string
   activityTags: Array<{ text: string }>
 }
 
