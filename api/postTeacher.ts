@@ -44,6 +44,7 @@ export default async function handler(req, res) {
           StartTime,
           EndTime,
           Location,
+          URL,
           BannerImageURL,
           Name,
           ShortIntroduction,
@@ -103,6 +104,7 @@ export default async function handler(req, res) {
         startTime: Event.StartTime ?? "No event start",
         endTime: Event.EndTime ?? "No event end",
         location: Event.Location ?? "No location",
+        url: Event.URL ?? "No URL",
         guests:
           Event.GuestEvent.map(({ Guest }) => ({
             name: Guest.Name ?? "No guest name",
