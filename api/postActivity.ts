@@ -68,7 +68,7 @@ export default async function handler(req, res) {
         )
       `
       )
-      .eq("Title", ActivityURL)
+      .eq("URL", ActivityURL)
       .single()
 
     if (!data) {
