@@ -11,11 +11,11 @@ export default async function handler(req, res) {
   if (req.method !== "POST")
     return res.status(405).json({ error: "Method not allowed" })
 
-  const { TeacherName } = req.body
-  if (!TeacherName)
+  const { TeacherURL } = req.body
+  if (!TeacherURL)
     return res.status(400).json({ error: "missing property: TeacherName" })
 
-  if (typeof TeacherName !== "string")
+  if (typeof TeacherURL !== "string")
     return res.status(400).json({ error: "TeacherName must be a string" })
 
   try {
@@ -26,6 +26,7 @@ export default async function handler(req, res) {
       Name,
       Mantra,
       MainImageURL,
+      URL,
       Description,
       History,
       BannerImageURL,
@@ -66,7 +67,7 @@ export default async function handler(req, res) {
       )
     `
       )
-      .eq("Name", TeacherName)
+      .eq("URL", TeacherURL)
       .single()
 
     if (!data) {
