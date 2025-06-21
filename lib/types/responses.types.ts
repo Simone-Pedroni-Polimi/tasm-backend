@@ -50,6 +50,7 @@ export interface ActivityType {
   title: string
   mainImageURL: string
   description: string
+  url: string
   nextLessons: {
     date: string
     time: string
