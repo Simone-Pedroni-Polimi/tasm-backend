@@ -94,6 +94,7 @@ export interface Event {
   startTime: string
   endTime: string
   location: string
+  url: string
   activityTags: Array<{ text: string }>
   highlights?: boolean
 }

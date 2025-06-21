@@ -20,6 +20,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       StartTime,
       EndTime,
       Location,
+      URL,
       GuestEvent (
         Guest (
           Name,
@@ -60,6 +61,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         startTime: e.StartTime ?? "No Start Time",
         endTime: e.EndTime ?? "No End Time",
         location: e.Location ?? "The Yoga Center",
+        url: e.URL ?? "No URL",
         hostName: host.name,
         hostImage: `/images/${host.image}`,
         eventId: e.EventId,
