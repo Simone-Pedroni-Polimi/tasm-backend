@@ -15,36 +15,34 @@ export type Room = {
 }
 
 export interface TeacherType {
-  name: string,
-  mantra: string,
-  description: string,
-  history: string,
-  bannerImageURL: string,
-  mainImageURL: string,
-  certifications: Array<{
-    title: string,
-  }>,
+  name: string
+  mantra: string
+  description: string
+  history: string
+  bannerImageURL: string
+  mainImageURL: string
+  certifications: Array<string>
   activities: Array<{
-    title: string,
-    bannerImageURL: string,
-  }>,
+    title: string
+    bannerImageURL: string
+  }>
   images: Array<{
-    URL: string,
-    alt: string,
-  }>,
+    URL: string
+    alt: string
+  }>
   events: Array<{
-    name: string,
+    name: string
     shortIntroduction: string
-    date: string,
-    startTime: string,
-    endTime: string,
-    location: string,
+    date: string
+    startTime: string
+    endTime: string
+    location: string
     guests: Array<{
-        name: string,
-        mainImageURL: string,
-    }>,
-    bannerImageURL: string,
-  }>,
+      name: string
+      mainImageURL: string
+    }>
+    bannerImageURL: string
+  }>
 }
 
 export interface ActivityType {
@@ -137,7 +135,7 @@ export interface Item {
 export interface Pricing {
   title: string
   subtitle: string
-  price: number,
+  price: number
   pricingItems: Item[]
   darkMode: boolean
 }

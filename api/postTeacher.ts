@@ -19,7 +19,10 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "TeacherName must be a string" })
 
   try {
-    const { data } = await supabase.from("Teacher").select(`
+    const { data } = await supabase
+      .from("Teacher")
+      .select(
+        `
       Name,
       Mantra,
       MainImageURL,
@@ -61,10 +64,14 @@ export default async function handler(req, res) {
           URL
         )
       )
-    `)
+    `
+      )
       .eq("Name", TeacherName)
       .single()
 
+    if (!data) {
+      return res.status(404).json({ error: "Teacher not found" })
+    }
 
     const teacher: TeacherType = {
       name: data.Name ?? "No name",
@@ -73,9 +80,10 @@ export default async function handler(req, res) {
       history: data.History ?? "No history",
       bannerImageURL: data.BannerImageURL ?? "No banner image",
       mainImageURL: `/images/${data.MainImageURL}`,
-      certifications: data.TeacherCert.map(({ Certification }) => ({
-          title: Certification.Title ?? "No certification title",
-      })),
+      certifications:
+        data.TeacherCert.map(({ Certification }) => Certification.Title).filter(
+          (C): C is string => !!C
+        ) ?? [],
       activities: data.TeacherActivity.map(({ Activity }) => ({
         title: `${Activity.Emoji} ${Activity.Title}`,
         bannerImageURL: `/images/${Activity.BannerImageURL}`,
@@ -91,16 +99,19 @@ export default async function handler(req, res) {
         startTime: Event.StartTime ?? "No event start",
         endTime: Event.EndTime ?? "No event end",
         location: Event.Location ?? "No location",
-        guests: Event.GuestEvent.map(({ Guest }) => ({
-          name: Guest.Name ?? "No guest name",
-          mainImageURL: `/images/${Guest.MainImageURL}`,
-        })) ?? [],
+        guests:
+          Event.GuestEvent.map(({ Guest }) => ({
+            name: Guest.Name ?? "No guest name",
+            mainImageURL: `/images/${Guest.MainImageURL}`,
+          })) ?? [],
         bannerImageURL: `/images/${Event.BannerImageURL}`,
       })),
     }
 
     return res.status(200).json(teacher)
   } catch (err) {
-    return res.status(500).json({ error: "Internal server error while executing query", err })
+    return res
+      .status(500)
+      .json({ error: "Internal server error while executing query", err })
   }
 }
