@@ -49,6 +49,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
           TeacherId,
           Name,
           Mantra,
+          URL,
           MainImageURL,
           TeacherActivity (
             Activity (
@@ -85,9 +86,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       mainImageURL: data.BannerImageURL ?? "notfound.jpg",
       programstr: data.Program ?? "No Program Yet",
       teachers: data.TeacherEvent.map(({ Teacher }) => ({
+        teacherId: Teacher.TeacherId ?? 0,
         name: Teacher.Name ?? "No Name",
         mantra: Teacher.Mantra ?? "No Mantra",
         image: Teacher.MainImageURL ?? "notfound.jpg",
+        url: Teacher.URL ?? "No URL",
         activityTags: Teacher.TeacherActivity.filter(
           (a) => a.Activity.Title
         ).map((a) => ({ text: a.Activity.Title ?? "other" })),
