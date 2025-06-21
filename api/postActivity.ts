@@ -17,12 +17,12 @@ export default async function handler(req, res) {
   if (req.method !== "POST")
     return res.status(405).json({ error: "Method not allowed" })
 
-  const { ActivityTitle } = req.body
-  if (!ActivityTitle)
-    return res.status(400).json({ error: "missing property: ActivityTitle" })
+  const { ActivityURL } = req.body
+  if (!ActivityURL)
+    return res.status(400).json({ error: "missing property: ActivityURL" })
 
-  if (typeof ActivityTitle !== "string")
-    return res.status(400).json({ error: "ActivityTitle must be a string" })
+  if (typeof ActivityURL !== "string")
+    return res.status(400).json({ error: "ActivityURL must be a string" })
 
   try {
     const { data } = await supabase
@@ -68,12 +68,12 @@ export default async function handler(req, res) {
         )
       `
       )
-      .eq("Title", ActivityTitle)
+      .eq("Title", ActivityURL)
       .single()
 
     if (!data) {
       return res.status(404).json({
-        error: `${ActivityTitle} - This activity is not available!`,
+        error: `${ActivityURL} - This activity is not available!`,
       })
     }
 
