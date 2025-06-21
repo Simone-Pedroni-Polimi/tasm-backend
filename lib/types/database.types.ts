@@ -204,6 +204,7 @@ export type Database = {
           ShortIntroduction: string | null
           StartTime: string | null
           Subtitle: string | null
+          URL: string | null
           YogaCenterId: number
         }
         Insert: {
@@ -220,6 +221,7 @@ export type Database = {
           ShortIntroduction?: string | null
           StartTime?: string | null
           Subtitle?: string | null
+          URL?: string | null
           YogaCenterId: number
         }
         Update: {
@@ -236,6 +238,7 @@ export type Database = {
           ShortIntroduction?: string | null
           StartTime?: string | null
           Subtitle?: string | null
+          URL?: string | null
           YogaCenterId?: number
         }
         Relationships: [

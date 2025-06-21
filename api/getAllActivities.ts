@@ -12,7 +12,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   const { data, error } = await supabase.from("Activity").select(`
       Title,
-      BannerImageURL
+      BannerImageURL,
+      URL
     `)
 
   if (error) {
@@ -22,6 +23,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       data.map((a) => ({
         title: a.Title ?? "No Title",
         image: `/images/${a.BannerImageURL}`,
+        url: a.URL ?? "No URL",
       }))
     )
   }
