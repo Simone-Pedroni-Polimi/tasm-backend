@@ -42,9 +42,11 @@ export default async function handler(req, res) {
         ),
         TeacherActivity (
           Teacher (
+            TeacherId,
             Name,
             Mantra,
             MainImageURL,
+            URL,
             TeacherActivity (
               Activity (
                 Title
@@ -120,9 +122,11 @@ export default async function handler(req, res) {
       })),
       info: [easyInfo, mediumInfo, hardInfo],
       teachers: data.TeacherActivity.map(({ Teacher }) => ({
+        teacherId: Teacher.TeacherId ?? 0,
         name: Teacher.Name ?? "No Name",
         image: `/${Teacher.MainImageURL}`,
         mantra: Teacher.Mantra ?? "No Mantra",
+        url: Teacher.URL ?? "No URL",
         activityTags: Teacher.TeacherActivity.map((a) => ({
           text: a.Activity.Title ?? "other",
         })),
