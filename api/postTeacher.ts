@@ -34,7 +34,8 @@ export default async function handler(req, res) {
         Activity(
           Title,
           BannerImageURL,
-          Emoji
+          Emoji,
+          URL
         )
       ),
       TeacherEvent(
@@ -89,6 +90,7 @@ export default async function handler(req, res) {
       activities: data.TeacherActivity.map(({ Activity }) => ({
         title: `${Activity.Emoji} ${Activity.Title}`,
         bannerImageURL: `/images/${Activity.BannerImageURL}`,
+        url: Activity.URL,
       })),
       images: data.TeacherImages.map(({ Image }) => ({
         URL: Image.URL ?? "",
