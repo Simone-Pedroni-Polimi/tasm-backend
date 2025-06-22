@@ -14,11 +14,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   if (req.method !== "POST")
     return res.status(405).json({ error: "Method not allowed" })
 
-  const { EventName } = req.body
-  if (!EventName)
+  const { EventURL } = req.body
+  if (!EventURL)
     return res.status(400).json({ error: "missing property: EventName" })
 
-  if (typeof EventName !== "string")
+  if (typeof EventURL !== "string")
     return res.status(400).json({ error: "EventName must be a string" })
 
   const { data, error } = await supabase
@@ -28,6 +28,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       EventId,
       Name,
       Subtitle,
+      URL,
       BannerImageURL,
       Date,
       ShortIntroduction,
@@ -60,7 +61,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       )
     `
     )
-    .eq("Name", EventName)
+    .eq("URL", EventURL)
     .single()
 
   if (error) {
@@ -78,8 +79,9 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     }
 
     const event: EventType = {
-      title: EventName,
+      title: data.Name ?? "No Name",
       subtitle: data.Subtitle ?? undefined,
+      url: data.URL ?? "No URL",
       shortDesc: data.ShortIntroduction ?? "No Introduction",
       description: data.Description ?? "No Description",
       infostr: data.PracticalInfo ?? "No Info",

@@ -108,6 +108,7 @@ export interface Activity {
 export interface EventType {
   title: string
   subtitle?: string
+  url: string
   mainImageURL: string
   shortDesc: string
   description: string
