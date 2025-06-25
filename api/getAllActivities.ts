@@ -12,8 +12,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   const { data, error } = await supabase.from("Activity").select(`
       Title,
+      ShortDescription,
       BannerImageURL,
-      URL
+      Emoji,
+      URL,
+      YogaCategoryId
     `)
 
   if (error) {
@@ -21,9 +24,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   } else {
     res.status(200).json(
       data.map((a) => ({
-        title: a.Title ?? "No Title",
+        title: `${a.Title} ${a.Emoji}`,
+        shortDescription: a.ShortDescription ?? "No short description",
         image: `/images/${a.BannerImageURL}`,
         url: a.URL ?? "No URL",
+        yogaCategory: a.YogaCategoryId ?? "0",
       }))
     )
   }

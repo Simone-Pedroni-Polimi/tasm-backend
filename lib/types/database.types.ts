@@ -42,8 +42,10 @@ export type Database = {
           Emoji: string | null
           Highlights: boolean | null
           ResponsibleTeacherId: number | null
+          ShortDescription: string | null
           Title: string | null
           URL: string | null
+          YogaCategoryId: number | null
           YogaCenterId: number | null
         }
         Insert: {
@@ -53,8 +55,10 @@ export type Database = {
           Emoji?: string | null
           Highlights?: boolean | null
           ResponsibleTeacherId?: number | null
+          ShortDescription?: string | null
           Title?: string | null
           URL?: string | null
+          YogaCategoryId?: number | null
           YogaCenterId?: number | null
         }
         Update: {
@@ -64,8 +68,10 @@ export type Database = {
           Emoji?: string | null
           Highlights?: boolean | null
           ResponsibleTeacherId?: number | null
+          ShortDescription?: string | null
           Title?: string | null
           URL?: string | null
+          YogaCategoryId?: number | null
           YogaCenterId?: number | null
         }
         Relationships: [
@@ -75,6 +81,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Teacher"
             referencedColumns: ["TeacherId"]
+          },
+          {
+            foreignKeyName: "Activity_YogaCategoryId_fkey"
+            columns: ["YogaCategoryId"]
+            isOneToOne: false
+            referencedRelation: "YogaCategory"
+            referencedColumns: ["YogaCategoryId"]
           },
           {
             foreignKeyName: "Activity_YogaCenterId_fkey"
@@ -770,6 +783,24 @@ export type Database = {
             referencedColumns: ["TeacherId"]
           },
         ]
+      }
+      YogaCategory: {
+        Row: {
+          Description: string | null
+          Title: string | null
+          YogaCategoryId: number
+        }
+        Insert: {
+          Description?: string | null
+          Title?: string | null
+          YogaCategoryId?: number
+        }
+        Update: {
+          Description?: string | null
+          Title?: string | null
+          YogaCategoryId?: number
+        }
+        Relationships: []
       }
       YogaCenter: {
         Row: {
