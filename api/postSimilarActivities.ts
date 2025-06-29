@@ -23,7 +23,7 @@ export default async function handler(req, res) {
       `)
 
     const postures = data.map((p) => ({
-      posture: p.Posture ?? "No posture",
+      posture: p.Posture ?? 0,
     }))
 
     return res.status(200).json(postures)

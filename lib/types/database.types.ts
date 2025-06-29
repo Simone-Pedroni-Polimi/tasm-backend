@@ -160,28 +160,28 @@ export type Database = {
       }
       ActivityScore: {
         Row: {
-          Accessibility: string | null
+          Accessibility: number | null
           ActivityId: number
-          Difficulty: string | null
-          MindfulnessConcentration: string | null
-          PhysicalFlow: string | null
-          Posture: string | null
+          Difficulty: number | null
+          MindfulnessConcentration: number | null
+          PhysicalFlow: number | null
+          Posture: number | null
         }
         Insert: {
-          Accessibility?: string | null
+          Accessibility?: number | null
           ActivityId?: number
-          Difficulty?: string | null
-          MindfulnessConcentration?: string | null
-          PhysicalFlow?: string | null
-          Posture?: string | null
+          Difficulty?: number | null
+          MindfulnessConcentration?: number | null
+          PhysicalFlow?: number | null
+          Posture?: number | null
         }
         Update: {
-          Accessibility?: string | null
+          Accessibility?: number | null
           ActivityId?: number
-          Difficulty?: string | null
-          MindfulnessConcentration?: string | null
-          PhysicalFlow?: string | null
-          Posture?: string | null
+          Difficulty?: number | null
+          MindfulnessConcentration?: number | null
+          PhysicalFlow?: number | null
+          Posture?: number | null
         }
         Relationships: [
           {
