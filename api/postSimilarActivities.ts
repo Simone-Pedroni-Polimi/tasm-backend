@@ -10,13 +10,6 @@ export default async function handler(req, res) {
   if (req.method !== "POST")
     return res.status(405).json({ error: "Method not allowed" })
 
-  const { ActivityURL } = req.body
-  if (!ActivityURL)
-    return res.status(400).json({ error: "missing property: ActivityURL" })
-
-  if (typeof ActivityURL !== "string")
-    return res.status(400).json({ error: "ActivityURL must be a string" })
-
   try {
     const { data } = await supabase
       .from("ActivityScore")
@@ -28,12 +21,6 @@ export default async function handler(req, res) {
         Difficulty,
         Accessibility
       `)
-
-    if (!data) {
-      return res.status(404).json({
-        error: `${ActivityURL} - This activity is not available!`,
-      })
-    }
 
     const postures = data.map((p) => ({
       posture: p.Posture ?? "No posture",
