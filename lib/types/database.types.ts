@@ -158,6 +158,41 @@ export type Database = {
           },
         ]
       }
+      ActivityScore: {
+        Row: {
+          Accessibility: string | null
+          ActivityId: number
+          Difficulty: string | null
+          MindfulnessConcentration: string | null
+          PhysicalFlow: string | null
+          Posture: string | null
+        }
+        Insert: {
+          Accessibility?: string | null
+          ActivityId?: number
+          Difficulty?: string | null
+          MindfulnessConcentration?: string | null
+          PhysicalFlow?: string | null
+          Posture?: string | null
+        }
+        Update: {
+          Accessibility?: string | null
+          ActivityId?: number
+          Difficulty?: string | null
+          MindfulnessConcentration?: string | null
+          PhysicalFlow?: string | null
+          Posture?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ActivityScore_id_fkey"
+            columns: ["ActivityId"]
+            isOneToOne: true
+            referencedRelation: "Activity"
+            referencedColumns: ["ActivityId"]
+          },
+        ]
+      }
       Certification: {
         Row: {
           CertificationId: number
@@ -402,39 +437,6 @@ export type Database = {
           },
         ]
       }
-      PracticalInfoLevel: {
-        Row: {
-          ActivityId: number
-          Level: string
-          PracticalInfoId: number
-        }
-        Insert: {
-          ActivityId: number
-          Level: string
-          PracticalInfoId: number
-        }
-        Update: {
-          ActivityId?: number
-          Level?: string
-          PracticalInfoId?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "PracticalInfoLevel_Level_fkey"
-            columns: ["Level"]
-            isOneToOne: false
-            referencedRelation: "Level"
-            referencedColumns: ["Value"]
-          },
-          {
-            foreignKeyName: "PracticalInfoLevel_PracticalInfoId_ActivityId_fkey"
-            columns: ["PracticalInfoId", "ActivityId"]
-            isOneToOne: false
-            referencedRelation: "PracticalInfo"
-            referencedColumns: ["PracticalInfoId", "ActivityId"]
-          },
-        ]
-      }
       Pricing: {
         Row: {
           Price: number | null
@@ -557,66 +559,6 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "Level"
             referencedColumns: ["Value"]
-          },
-        ]
-      }
-      SimilarActivity: {
-        Row: {
-          ActivityId1: number
-          ActivityId2: number
-        }
-        Insert: {
-          ActivityId1: number
-          ActivityId2: number
-        }
-        Update: {
-          ActivityId1?: number
-          ActivityId2?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "SimilarActivity_ActivityId1_fkey"
-            columns: ["ActivityId1"]
-            isOneToOne: false
-            referencedRelation: "Activity"
-            referencedColumns: ["ActivityId"]
-          },
-          {
-            foreignKeyName: "SimilarActivity_ActivityId2_fkey"
-            columns: ["ActivityId2"]
-            isOneToOne: false
-            referencedRelation: "Activity"
-            referencedColumns: ["ActivityId"]
-          },
-        ]
-      }
-      SimilarEvent: {
-        Row: {
-          EventId1: number
-          EventId2: number
-        }
-        Insert: {
-          EventId1: number
-          EventId2: number
-        }
-        Update: {
-          EventId1?: number
-          EventId2?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "SimilarEvent_EventId1_fkey"
-            columns: ["EventId1"]
-            isOneToOne: false
-            referencedRelation: "Event"
-            referencedColumns: ["EventId"]
-          },
-          {
-            foreignKeyName: "SimilarEvent_EventId2_fkey"
-            columns: ["EventId2"]
-            isOneToOne: false
-            referencedRelation: "Event"
-            referencedColumns: ["EventId"]
           },
         ]
       }
