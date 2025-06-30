@@ -16,7 +16,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       BannerImageURL,
       Emoji,
       URL,
-      YogaCategoryId
+      YogaCategoryId,
+      ActivityScore (Posture, MindfulnessConcentration, PhysicalFlow, Difficulty, Accessibility)
     `)
 
   if (error) {
@@ -29,6 +30,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         image: `/images/${a.BannerImageURL}`,
         url: a.URL ?? "No URL",
         yogaCategory: a.YogaCategoryId ?? "0",
+        postures: a.ActivityScore.Posture ?? "No posture",
       }))
     )
   }
