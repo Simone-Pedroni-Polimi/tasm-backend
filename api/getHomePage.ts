@@ -42,9 +42,11 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
     console.log("Retrieving Teachers")
     const { data: dataTeachers } = await supabase.from("Teacher").select(`
+        TeacherId,
         Name,
         Mantra,
         MainImageURL,
+        URL,
         TeacherActivity(
           Activity(
             Title
@@ -64,6 +66,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     console.log("Retrieving Events")
     const { data: dataEvents } = await supabase.from("Event").select(`
         EventId,
+        URL,
         Date,
         StartTime,
         EndTime,
@@ -124,6 +127,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       }
 
       return {
+        url: e.URL ?? "No URL",
         title: e.Name ?? "No Name",
         date: e.Date ?? "No Date",
         startTime: e.StartTime ?? "No Start Time",
@@ -144,6 +148,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     console.log("Events ok", JSON.stringify(events, null, 2))
 
     const teachers: Teacher[] = dataTeachers.map((teacher) => ({
+      url: teacher.URL ?? "No URL",
+      teacherId: teacher.TeacherId ?? 0,
       name: teacher.Name ?? "No Name",
       image: teacher.MainImageURL ?? "No Image",
       mantra: teacher.Mantra ?? "No Mantra",
