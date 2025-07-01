@@ -33,6 +33,7 @@ export default async function handler(req, res) {
         Description,
         BannerImageURL,
         URL,
+        YogaCategoryId,
         ActivitySchedule (
           Schedule (
             StartTime,
@@ -103,6 +104,7 @@ export default async function handler(req, res) {
       description: data.Description ?? "No Description",
       mainImageURL: `${data.BannerImageURL}`,
       url: data.URL ?? "No URL",
+      yogaCategory: data.YogaCategoryId ?? 0,
       nextLessons: data.ActivitySchedule.map(({ Schedule }, i) => {
         const start = (Schedule.StartTime ?? "00:00:00").substring(0, 5)
         const end = (Schedule.EndTime ?? "00:00:00").substring(0, 5)

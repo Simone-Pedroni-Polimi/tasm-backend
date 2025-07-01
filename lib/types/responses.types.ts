@@ -51,6 +51,7 @@ export interface ActivityType {
   mainImageURL: string
   description: string
   url: string
+  yogaCategory: number
   nextLessons: {
     date: string
     time: string
