@@ -30,6 +30,7 @@ export default async function handler(req, res) {
       .select(
         `
         Title,
+        Emoji,
         Description,
         BannerImageURL,
         URL,
@@ -100,7 +101,7 @@ export default async function handler(req, res) {
     )
 
     const activity: ActivityType = {
-      title: data.Title ?? "No Title",
+      title: `${data.Title} ${data.Emoji}`,
       description: data.Description ?? "No Description",
       mainImageURL: `${data.BannerImageURL}`,
       url: data.URL ?? "No URL",
