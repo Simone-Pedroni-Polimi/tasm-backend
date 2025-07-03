@@ -33,6 +33,7 @@ export default async function handler(req, res) {
       TeacherActivity(
         Activity(
           Title,
+          ShortDescription,
           BannerImageURL,
           Emoji,
           URL
@@ -88,8 +89,12 @@ export default async function handler(req, res) {
         data.TeacherCert.map(({ Certification }) => Certification.Title).filter(
           (C): C is string => !!C
         ) ?? [],
-      activities: data.TeacherActivity.map(({ Activity }) => ({
+      specializations: data.TeacherActivity.map(({ Activity }) => ({
         title: `${Activity.Emoji} ${Activity.Title}`,
+      })),
+      activities: data.TeacherActivity.map(({ Activity }) => ({
+        title: `${Activity.Title} ${Activity.Emoji}`,
+        shortDescription: Activity.ShortDescription ?? "No description",
         bannerImageURL: `/images/${Activity.BannerImageURL}`,
         url: Activity.URL ?? "No URL",
       })),

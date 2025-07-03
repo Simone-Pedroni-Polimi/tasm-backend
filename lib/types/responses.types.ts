@@ -23,6 +23,9 @@ export interface TeacherType {
   bannerImageURL: string
   mainImageURL: string
   certifications: Array<string>
+  specializations: Array<{
+    title: string
+  }>
   activities: Array<{
     title: string
     bannerImageURL: string
