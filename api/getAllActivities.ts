@@ -13,7 +13,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   const { data, error } = await supabase.from("Activity").select(`
       Title,
       ShortDescription,
-      BannerImageURL,
+      CardImageURL,
       Emoji,
       URL,
       YogaCategoryId
@@ -26,7 +26,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       data.map((a) => ({
         title: `${a.Title} ${a.Emoji}`,
         shortDescription: a.ShortDescription ?? "No short description",
-        image: `/images/${a.BannerImageURL}`,
+        image: `/images/${a.CardImageURL}`,
         url: a.URL ?? "No URL",
         yogaCategory: a.YogaCategoryId ?? 0,
       }))
