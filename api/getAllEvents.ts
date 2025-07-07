@@ -15,7 +15,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       EventId,
       Name,
       Subtitle,
-      BannerImageURL,
+      CardImageURL,
       Date,
       StartTime,
       EndTime,
@@ -65,7 +65,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
         hostName: host.name,
         hostImage: `/images/${host.image}`,
         eventId: e.EventId,
-        eventImage: `/images/${e.BannerImageURL}`,
+        eventImage: `/images/${e.CardImageURL}`,
         activityTags:
           e.TeacherEvent[0]?.Teacher?.TeacherActivity?.filter?.(
             (a) => a.Activity.Title

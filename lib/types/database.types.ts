@@ -213,6 +213,7 @@ export type Database = {
       Event: {
         Row: {
           BannerImageURL: string | null
+          CardImageURL: string | null
           Date: string | null
           Description: string | null
           EndTime: string | null
@@ -230,6 +231,7 @@ export type Database = {
         }
         Insert: {
           BannerImageURL?: string | null
+          CardImageURL?: string | null
           Date?: string | null
           Description?: string | null
           EndTime?: string | null
@@ -247,6 +249,7 @@ export type Database = {
         }
         Update: {
           BannerImageURL?: string | null
+          CardImageURL?: string | null
           Date?: string | null
           Description?: string | null
           EndTime?: string | null
