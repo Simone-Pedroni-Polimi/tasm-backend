@@ -86,6 +86,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       description: data.Description ?? "No Description",
       infostr: data.PracticalInfo ?? "No Info",
       mainImageURL: data.BannerImageURL ?? "notfound.jpg",
+      date: data.Date ?? "No date",
       programstr: data.Program ?? "No Program Yet",
       teachers: data.TeacherEvent.map(({ Teacher }) => ({
         teacherId: Teacher.TeacherId ?? 0,
