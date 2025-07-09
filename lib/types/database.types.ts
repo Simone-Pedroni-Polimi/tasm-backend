@@ -184,6 +184,32 @@ export type Database = {
         }
         Relationships: []
       }
+      CertificationIcon: {
+        Row: {
+          id: number
+          ImageURL: string | null
+          YogaCenterId: number | null
+        }
+        Insert: {
+          id?: number
+          ImageURL?: string | null
+          YogaCenterId?: number | null
+        }
+        Update: {
+          id?: number
+          ImageURL?: string | null
+          YogaCenterId?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "CertificationIcon_YogaCenterId_fkey"
+            columns: ["YogaCenterId"]
+            isOneToOne: false
+            referencedRelation: "YogaCenter"
+            referencedColumns: ["YogaCenterId"]
+          },
+        ]
+      }
       Contact: {
         Row: {
           ContactId: number

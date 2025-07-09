@@ -4,7 +4,9 @@ import {
   Activity,
   Teacher,
   Event,
-  Highlights, Review,
+  Highlights,
+  Review,
+  Certification
 } from "../lib/types/responses.types"
 import { supabase } from "../lib/supabase"
 
@@ -15,6 +17,7 @@ interface ResponseData {
   teachers: Teacher[]
   highlights: Highlights
   reviews: Review[]
+  certifications: Certification[]
 }
 
 export default async (req: VercelRequest, res: VercelResponse) => {
@@ -105,6 +108,12 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     `)
     if (!dataReviews) throw new Error("No Reviews in DB")
 
+    console.log("Retrieving certification")
+    const { data: dataCertifications } = await supabase.from("CertificationIcon").select(`
+       ImageURL
+    `)
+    if (!dataCertifications) throw new Error("No Reviews in DB")
+
     console.log("Composing Response")
 
     const yogaCenter: YogaCenterHomePage = {
@@ -182,13 +191,18 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       stars: r.Stars ?? 0,
     }))
 
+    const certifications: Certification[] = dataCertifications.map((c) => ({
+      imageURL: c.ImageURL ?? "notfound.jpg",
+    }))
+
     const resData: ResponseData = {
       yogaCenter,
       activities,
       events,
       teachers,
       highlights,
-      reviews
+      reviews,
+      certifications
     }
 
     console.log("Composed response data")
