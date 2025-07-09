@@ -125,6 +125,7 @@ export interface EventType {
   url: string
   mainImageURL: string
   date: string
+  location: string
   shortDesc: string
   description: string
   infostr: string
