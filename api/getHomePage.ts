@@ -60,7 +60,8 @@ export default async (req: VercelRequest, res: VercelResponse) => {
     const { data: dataActivities } = await supabase.from("Activity").select(`
       Title,
       BannerImageURL,
-      Highlights
+      Highlights,
+      URL
     `)
     if (!dataActivities) throw new Error("No Activities in DB")
 
@@ -119,6 +120,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       title: activity.Title ?? "No Title",
       image: `/images/${activity.BannerImageURL}`,
       highlights: activity.Highlights ?? false,
+      url: activity.URL ?? "No URL",
     }))
 
     console.log("Activities ok", JSON.stringify(activities, null, 2))
