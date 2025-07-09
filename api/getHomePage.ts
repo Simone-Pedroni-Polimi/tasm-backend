@@ -1,10 +1,10 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node"
-import type {
+import {
   YogaCenterHomePage,
   Activity,
   Teacher,
   Event,
-  Highlights
+  Highlights, Review,
 } from "../lib/types/responses.types"
 import { supabase } from "../lib/supabase"
 
@@ -14,6 +14,7 @@ interface ResponseData {
   events: Event[]
   teachers: Teacher[]
   highlights: Highlights
+  reviews: Review[]
 }
 
 export default async (req: VercelRequest, res: VercelResponse) => {
@@ -95,6 +96,14 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       `)
     if (!dataEvents) throw new Error("No Events in DB")
 
+    console.log("Retrieving reviews")
+    const { data: dataReviews } = await supabase.from("Review").select(`
+      Person,
+      Text,
+      Stars  
+    `)
+    if (!dataReviews) throw new Error("No Reviews in DB")
+
     console.log("Composing Response")
 
     const yogaCenter: YogaCenterHomePage = {
@@ -165,12 +174,19 @@ export default async (req: VercelRequest, res: VercelResponse) => {
       highlightActivities: activities.filter((activity) => activity.highlights === true),
     }
 
+    const reviews: Review[] = dataReviews.map((r) => ({
+      person: r.Person ?? "No person",
+      text: r.Text ?? "No text",
+      stars: r.Stars ?? 0,
+    }))
+
     const resData: ResponseData = {
       yogaCenter,
       activities,
       events,
       teachers,
       highlights,
+      reviews
     }
 
     console.log("Composed response data")

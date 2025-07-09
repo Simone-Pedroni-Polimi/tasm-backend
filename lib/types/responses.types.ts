@@ -81,6 +81,12 @@ export interface YogaCenterHomePage {
   imageOnTheRight: boolean
 }
 
+export interface Review {
+  person: string
+  text: string
+  stars: number
+}
+
 export interface YogaCenter {
   title: string
   subtitle: string

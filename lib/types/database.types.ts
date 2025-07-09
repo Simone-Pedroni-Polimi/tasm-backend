@@ -471,6 +471,38 @@ export type Database = {
           },
         ]
       }
+      Review: {
+        Row: {
+          id: number
+          Person: string | null
+          Stars: number | null
+          Text: string | null
+          YogaCenterId: number | null
+        }
+        Insert: {
+          id?: number
+          Person?: string | null
+          Stars?: number | null
+          Text?: string | null
+          YogaCenterId?: number | null
+        }
+        Update: {
+          id?: number
+          Person?: string | null
+          Stars?: number | null
+          Text?: string | null
+          YogaCenterId?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "Review_YogaCenterId_fkey"
+            columns: ["YogaCenterId"]
+            isOneToOne: false
+            referencedRelation: "YogaCenter"
+            referencedColumns: ["YogaCenterId"]
+          },
+        ]
+      }
       Room: {
         Row: {
           Name: string | null
